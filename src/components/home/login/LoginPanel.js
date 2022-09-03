@@ -1,10 +1,10 @@
 import React from "react";
-import useInput from "../inputMaterial/useInput";
-import loginApi from "../../api/loginApi";
+import useInput from "../../inputMaterial/useInput";
+import loginApi from "../../../api/loginApi";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signIn } from "../../actions/index.js";
+import { signIn } from "../../../actions/index.js";
 
 const LoginPanel = ({ setIsLogged, routes }) => {
   const navigate = useNavigate();
@@ -16,35 +16,44 @@ const LoginPanel = ({ setIsLogged, routes }) => {
     reset: resetPassword,
   } = useInput("");
 
-  const isLoggedX = useSelector((state) => state.isLogged);
+  const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
 
   const handleSubmit = async (e, state) => {
     e.preventDefault();
-    const res = await loginApi("http://localhost:8080/login", login, password);
+    try {
+      const res = await loginApi(
+        "http://localhost:8080/login",
+        login,
+        password
+      );
 
-    console.log(res);
-    if (res) {
-      // let cookie;
-      // for(const key of Object.keys(res){
+      console.log(res);
+      if (res) {
+        // let cookie;
+        // for(const key of Object.keys(res){
+        // })
+        // document.cookies = res.headers.cookies;
 
-      // })
-      // document.cookies = res.headers.cookies;
-      sessionStorage.setItem("easyValuationKey", res);
-      setIsLogged();
-      navigate(`/`);
-    } else {
-      resetLogin();
-      resetPassword();
-      document.querySelector(".login__failure").classList.remove("hidden");
-      setTimeout(() => {
-        document.querySelector(".login__failure").classList.add("hidden");
-      }, 5000);
+        sessionStorage.setItem("easyValuationKey", res);
+        setIsLogged();
+        dispatch(signIn());
+        navigate(`/`);
+      } else {
+        resetLogin();
+        resetPassword();
+        document.querySelector(".login__failure").classList.remove("hidden");
+        setTimeout(() => {
+          document.querySelector(".login__failure").classList.add("hidden");
+        }, 5000);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <div className="login__loginpanel">
+    <div className="login__login-panel">
       <h2>Login</h2>
       <form onSubmit={(e) => handleSubmit(e, { login, password })}>
         <label>Login</label>
@@ -59,8 +68,8 @@ const LoginPanel = ({ setIsLogged, routes }) => {
       </form>
       <p className="login__failure hidden">Wrong login or password!</p>
 
-      {isLoggedX ? <p>User is logged in</p> : <p>User is NOT logged in</p>}
-      <button onClick={() => dispatch(signIn())}>Logging</button>
+      {/* {isLoggedX ? <p>User is logged in</p> : <p>User is NOT logged in</p>}
+      <button onClick={() => dispatch(signIn())}>Logging</button> */}
 
       <Link
         key={routes.find((route) => route.key == "/registration").key}

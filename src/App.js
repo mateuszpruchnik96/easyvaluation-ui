@@ -1,9 +1,10 @@
-import Login from "./components/login/Login.js";
+import Login from "./components/home/login/Login.js";
 import Landing from "./components/home/Landing";
-import Header from "./components/header/Header";
+import Header from "./components/home/header/Header";
 import Workbench from "./components/workbench/Workbench.js";
 import axios from "axios";
-import Registration from "./components/registration/Registration.js";
+import Registration from "./components/home/registration/Registration.js";
+import { useSelector, useDispatch } from "react-redux";
 import "./styles.css";
 // import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -16,13 +17,16 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
-  useEffect(() => {
-    let key = sessionStorage.getItem("easyValuationKey");
-    if (key) {
-      setIsLogged(true);
-    }
-  }, []);
+  // const [isLogged, setIsLogged] = useState(false);
+  // useEffect(() => {
+  //   let key = sessionStorage.getItem("easyValuationKey");
+  //   if (key) {
+  //     setIsLogged(true);
+  //   }
+  // }, []);
+
+  const isLogged = useSelector((state) => state.isLogged);
+  const dispatch = useDispatch();
 
   const pageVariants = {
     in: {
@@ -62,7 +66,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Header routes={routes} isLogged={isLogged} />
+        {/* <Header routes={routes} isLogged={isLogged} /> */}
         <Routes>
           {routes.map(function (route) {
             return (
@@ -70,8 +74,8 @@ function App() {
                 path={route.path}
                 element={
                   <route.component
-                    isLogged={isLogged}
-                    setIsLogged={() => setIsLogged(true)}
+                    // isLogged={isLogged}
+                    // setIsLogged={() => setIsLogged(true)}
                     variants={pageVariants}
                     transition={pageTransition}
                     routes={routes}

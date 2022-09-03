@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import useInput from "../inputMaterial/useInput";
+import useInput from "../../inputMaterial/useInput";
 import axios from "axios";
 
 const RegistrationPanel = ({}) => {
