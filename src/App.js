@@ -16,6 +16,7 @@ import {
 import React from "react";
 import { useState, useEffect } from "react";
 import Projects from "components/workbench/projects/Projects.js";
+import allRoutes from "routes/allRoutes.js";
 
 function App() {
   // const [isLogged, setIsLogged] = useState(false);
@@ -45,32 +46,34 @@ function App() {
     transition: "transform 3000, opacity 3000",
   };
 
-  const routes = [
-    { key: "/", path: "/", name: "Home", component: Landing },
-    {
-      key: "/workbench",
-      path: "/workbench",
-      name: "Workbench",
-      component: Workbench,
-      nestedRoutes: [
-        {
-          key: "/workbench/projects",
-          path: "/workbench/projects",
-          name: "Your Projects",
-          component: Projects,
-        },
-      ],
-    },
-    { key: "/login", path: "/login", name: "Login", component: Login },
-    {
-      key: "/registration",
-      path: "/registration",
-      name: "Registration",
-      component: Registration,
-    },
+  const routes = allRoutes;
 
-    // { path: "/about", name: "About us", component: About },
-  ];
+  // const routes = [
+  //   { key: "/", path: "/", name: "Home", component: Landing },
+  //   {
+  //     key: "/workbench",
+  //     path: "/workbench",
+  //     name: "Workbench",
+  //     component: Workbench,
+  //     nestedRoutes: [
+  //       {
+  //         key: "/workbench/projects",
+  //         path: "/workbench/projects",
+  //         name: "Your Projects",
+  //         component: Projects,
+  //       },
+  //     ],
+  //   },
+  //   { key: "/login", path: "/login", name: "Login", component: Login },
+  //   {
+  //     key: "/registration",
+  //     path: "/registration",
+  //     name: "Registration",
+  //     component: Registration,
+  //   },
+
+  // { path: "/about", name: "About us", component: About },
+  // ];
 
   return (
     <Router>
