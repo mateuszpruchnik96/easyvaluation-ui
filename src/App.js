@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import React from "react";
 import { useState, useEffect } from "react";
+import Projects from "components/workbench/projects/Projects.js";
 
 function App() {
   // const [isLogged, setIsLogged] = useState(false);
@@ -51,6 +52,14 @@ function App() {
       path: "/workbench",
       name: "Workbench",
       component: Workbench,
+      nestedRoutes: [
+        {
+          key: "/workbench/projects",
+          path: "/workbench/projects",
+          name: "Your Projects",
+          component: Projects,
+        },
+      ],
     },
     { key: "/login", path: "/login", name: "Login", component: Login },
     {
@@ -79,9 +88,32 @@ function App() {
                     variants={pageVariants}
                     transition={pageTransition}
                     routes={routes}
-                  />
+                  ></route.component>
                 }
-              />
+              >
+                {
+                  // (() => {
+                  route.nestedRoutes
+                    ? route.nestedRoutes.map(function (nestedRoute) {
+                        return (
+                          <Route
+                            path={nestedRoute.path}
+                            element={
+                              <nestedRoute.component
+                                variants={pageVariants}
+                                transition={pageTransition}
+                                //  routes={routes}
+                              />
+                            }
+                          />
+                        );
+                      })
+                    : () => {
+                        return <></>;
+                      }
+                }
+                {/* // })() */}
+              </Route>
             );
           })}
         </Routes>
@@ -91,3 +123,43 @@ function App() {
 }
 
 export default App;
+
+// {
+//   // (() => {
+//   route.nestedRoutes
+//     ? route.nestedRoutes.map(function (nestedRoute) {
+//         return (
+//           <Route
+//             path={nestedRoute.path}
+//             element={
+//               <nestedRoute.component
+//                 variants={pageVariants}
+//                 transition={pageTransition}
+//                 //  routes={routes}
+//               />
+//             }
+//           />
+//         );
+//       })
+//     : () => {
+//         return <></>;
+//       }
+// })()
+//
+
+// <Route
+// path="/workbenchX"
+// element={
+//   <Workbench
+//     variants={pageVariants}
+//     transition={pageTransition}
+//     routes={routes}
+//   ></Workbench>
+// }
+// >
+// <Route
+//   path="/workbenchX/projects"
+//   variants={pageVariants}
+//   transition={pageTransition}
+// ></Route>
+// </Route>

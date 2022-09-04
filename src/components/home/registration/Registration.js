@@ -8,7 +8,7 @@ const Registration = ({ variants, routes, transition, setIsLogged }) => {
   const isLogged = useSelector((state) => state.isLogged);
 
   return (
-    <div>
+    <div className="homeContainer">
       <Header routes={routes} isLogged={isLogged} />
 
       <motion.div

@@ -4,7 +4,7 @@ import Header from "components/home/header/Header";
 
 const Landing = ({ variants, routes, transition, isLogged }) => {
   return (
-    <div>
+    <div className="homeContainer">
       <Header routes={routes} isLogged={isLogged} />
 
       <motion.div
