@@ -38,7 +38,7 @@ const LoginPanel = ({ setIsLogged, routes }) => {
         sessionStorage.setItem("easyValuationKey", res);
         setIsLogged();
         dispatch(signIn());
-        navigate(`/`);
+        navigate(`/workbench`);
       } else {
         resetLogin();
         resetPassword();

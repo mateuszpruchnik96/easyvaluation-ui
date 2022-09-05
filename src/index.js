@@ -9,17 +9,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createStore } from "redux";
 import allReducers from "./reducers/reducers";
 import { Provider } from "react-redux";
+import store from "./store";
 
 let token = sessionStorage.easyValuationToken;
 axios.defaults.baseURL = "http://localhost:8080/";
 axios.defaults.headers.common = { Authorization: `bearer ${token}` };
 export default axios;
-
-//STORE
-const store = createStore(
-  allReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
 
 ReactDOM.render(
   <React.StrictMode>
