@@ -48,33 +48,6 @@ function App() {
 
   const routes = allRoutes;
 
-  // const routes = [
-  //   { key: "/", path: "/", name: "Home", component: Landing },
-  //   {
-  //     key: "/workbench",
-  //     path: "/workbench",
-  //     name: "Workbench",
-  //     component: Workbench,
-  //     nestedRoutes: [
-  //       {
-  //         key: "/workbench/projects",
-  //         path: "/workbench/projects",
-  //         name: "Your Projects",
-  //         component: Projects,
-  //       },
-  //     ],
-  //   },
-  //   { key: "/login", path: "/login", name: "Login", component: Login },
-  //   {
-  //     key: "/registration",
-  //     path: "/registration",
-  //     name: "Registration",
-  //     component: Registration,
-  //   },
-
-  // { path: "/about", name: "About us", component: About },
-  // ];
-
   return (
     <Router>
       <div className="app">

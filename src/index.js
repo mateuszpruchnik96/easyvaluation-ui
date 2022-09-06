@@ -11,10 +11,11 @@ import allReducers from "./reducers/reducers";
 import { Provider } from "react-redux";
 import store from "./store";
 
-let token = sessionStorage.easyValuationToken;
-axios.defaults.baseURL = "http://localhost:8080/";
-axios.defaults.headers.common = { Authorization: `bearer ${token}` };
-export default axios;
+// let token = JSON.parse(sessionStorage.easyValuationKey).easyValuationToken;
+// console.log(token);
+// axios.defaults.baseURL = "http://localhost:8080/";
+// axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
+// export default axios;
 
 ReactDOM.render(
   <React.StrictMode>

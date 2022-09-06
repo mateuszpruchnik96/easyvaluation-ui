@@ -18,6 +18,7 @@ const Workbench = ({ variants, transition }) => {
 
   let [projects, setProjects] = useState("");
 
+  //run with server
   console.log("render");
   useEffect(() => {
     console.log("resource type change");
@@ -29,6 +30,7 @@ const Workbench = ({ variants, transition }) => {
         .then((resp) => console.log(resp))
         .catch((e) => console.error(`Error: ${e}`))
     );
+    console.log(projects);
   }, []);
 
   return (

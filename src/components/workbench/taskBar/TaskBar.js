@@ -3,13 +3,16 @@ import TaskBarButton from "./TaskBarButton";
 import Projects from "../projects/Projects";
 import { Route, Routes } from "react-router-dom";
 
+// import allRoutes from "routes/allRoutes.js";
+
 const TaskBar = ({ onClick, tabs }) => {
+  // const allRoutex = allRoutes;
   return (
     <div className="workbench__task-bar">
       {tabs.map((tab) => (
         <tab.component onClick={onClick} tab={tab}></tab.component>
       ))}
-      <Routes>
+      {/* <Routes>
         <Route
           path={`/projects`}
           element={
@@ -22,7 +25,7 @@ const TaskBar = ({ onClick, tabs }) => {
             />
           }
         />
-      </Routes>
+      </Routes> */}
 
       {/* { key: "new-project", name: "New project", component: TaskBarButton }, */}
     </div>

@@ -28,7 +28,7 @@ body {
   font-size: 16px;
   // font-family: 'Inter', sans-serif;
   font-family: "Roboto", sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   text-decoration: none;
 
   box-sizing: border-box;
@@ -214,8 +214,10 @@ body {
           text-align: center;
           justify-content: center;
           margin-bottom: 1.5rem;
-          &:focus {
+          &:focus-visible {
             color: $color1;
+            border: 2px solid $main-color;
+            outline: none;
           }
         }
 
@@ -296,6 +298,7 @@ body {
     flex-direction: column;
     width: 14rem;
     height: 100vh;
+    gap: 0.2rem;
 
     background-image: url("./images/screw_1920.jpg");
     box-shadow: inset 0 0 0 1000px rgba($gray-color, 0.8);
@@ -308,9 +311,16 @@ body {
     color: $color3;
 
     &--button {
-      background: none;
+      background: $color2;
       border: none;
       outline: none;
+
+      color: $color3;
+      font-weight: 400;
+      font-size: 1.1rem;
+
+      padding: 0.4rem 1rem;
+      margin: 0 1rem;
 
       &:link,
       &:visited {
@@ -319,6 +329,7 @@ body {
       &:hover,
       &:active {
         cursor: pointer;
+        background: $secondary-color-light;
       }
     }
   }
