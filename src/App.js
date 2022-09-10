@@ -1,9 +1,5 @@
-import Login from "./components/home/login/Login.js";
-import Landing from "./components/home/Landing";
-import Header from "./components/home/header/Header";
 import Workbench from "./components/workbench/Workbench.js";
-import axios from "axios";
-import Registration from "./components/home/registration/Registration.js";
+
 import { useSelector, useDispatch } from "react-redux";
 import "./styles.css";
 // import { AnimatePresence, motion } from "framer-motion";
@@ -14,8 +10,7 @@ import {
   // useLocation,
 } from "react-router-dom";
 import React from "react";
-import { useState, useEffect } from "react";
-import Projects from "components/workbench/projects/Projects.js";
+
 import allRoutes from "routes/allRoutes.js";
 
 function App() {
@@ -46,7 +41,7 @@ function App() {
     transition: "transform 3000, opacity 3000",
   };
 
-  const routes = allRoutes;
+  const routes = allRoutes();
 
   return (
     <Router>
@@ -56,6 +51,7 @@ function App() {
           {routes.map(function (route) {
             return (
               <Route
+                key={route.key}
                 path={route.path}
                 element={
                   <route.component
@@ -67,7 +63,7 @@ function App() {
                   ></route.component>
                 }
               >
-                {
+                {/* {
                   // (() => {
                   route.nestedRoutes
                     ? route.nestedRoutes.map(function (nestedRoute) {
@@ -87,7 +83,7 @@ function App() {
                     : () => {
                         return <></>;
                       }
-                }
+                } */}
                 {/* // })() */}
               </Route>
             );

@@ -36,7 +36,7 @@ const LoginPanel = ({ setIsLogged, routes }) => {
         // document.cookies = res.headers.cookies;
 
         sessionStorage.setItem("easyValuationKey", res);
-        setIsLogged();
+        // setIsLogged();
         dispatch(signIn());
         navigate(`/workbench`);
       } else {
@@ -72,8 +72,8 @@ const LoginPanel = ({ setIsLogged, routes }) => {
       <button onClick={() => dispatch(signIn())}>Logging</button> */}
 
       <Link
-        key={routes.find((route) => route.key == "/registration").key}
-        to={routes.find((route) => route.path == "/registration").path}
+        key={routes.find((route) => route.key === "/registration").key}
+        to={routes.find((route) => route.path === "/registration").path}
       >
         Create an account
       </Link>

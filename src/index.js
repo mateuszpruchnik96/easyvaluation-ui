@@ -3,11 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import axios from "axios";
-import { useEffect } from "react";
-import { configureStore } from "@reduxjs/toolkit";
-import { createStore } from "redux";
-import allReducers from "./reducers/reducers";
 import { Provider } from "react-redux";
 import store from "./store";
 

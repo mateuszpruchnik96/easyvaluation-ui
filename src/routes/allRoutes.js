@@ -5,11 +5,11 @@ import NewProject from "components/workbench/newProject/NewProject";
 import Login from "components/home/login/Login";
 import Registration from "components/home/registration/Registration";
 
-const allRoutes = [
+const allRoutes = () => [
   { key: "/", path: "/", name: "Home", component: Landing },
   {
     key: "/workbench",
-    path: "/workbench",
+    path: "/workbench/*",
     name: "Workbench",
     component: Workbench,
     nestedRoutes: [
@@ -20,14 +20,14 @@ const allRoutes = [
       //   component: Projects,
       // },
       {
-        key: "/workbench/projects",
-        path: "/workbench/projects",
+        key: "/projects",
+        path: "/projects",
         name: "Your Projects",
         component: Projects,
       },
       {
-        key: "/workbench/newproject",
-        path: "/workbench/newproject",
+        key: "/newproject",
+        path: "/newproject",
         name: "New Project",
         component: NewProject,
       },
@@ -44,4 +44,8 @@ const allRoutes = [
   // { path: "/about", name: "About us", component: About },
 ];
 
+const allRoutesJSON = { ...allRoutes };
+console.log(allRoutesJSON);
+
+export { allRoutesJSON };
 export default allRoutes;

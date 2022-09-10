@@ -9,7 +9,7 @@ const loginApi = async function (url, login, password) {
       password: password,
     });
 
-    if (res.status != 200) throw new Error("Problem...", res);
+    if (res.status !== 200) throw new Error("Problem...", res);
 
     console.log(JSON.stringify(res.data));
     return JSON.stringify(res.data);

@@ -1,7 +1,6 @@
 import React from "react";
 import LoginPanel from "./LoginPanel";
-import { AnimatedPresence, motion } from "framer-motion";
-import { Link, Route } from "react-router-dom";
+import { motion } from "framer-motion";
 import Header from "../header/Header";
 import { useSelector } from "react-redux";
 

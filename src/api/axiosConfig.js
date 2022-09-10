@@ -1,6 +1,11 @@
 import axios from "axios";
 
-let token = JSON.parse(sessionStorage.easyValuationKey).easyValuationToken;
+let token = null;
+if (sessionStorage.easyValuationKey) {
+  token = JSON.parse(sessionStorage.easyValuationKey).easyValuationToken;
+} else {
+  token = null;
+}
 
 const instance = axios.create({
   baseURL: "http://localhost:8080/",

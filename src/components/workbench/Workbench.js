@@ -7,30 +7,42 @@ import Projects from "./projects/Projects";
 import TaskBarButton from "./taskBar/TaskBarButton";
 import axios from "axios";
 import axiosConfig from "../../../src/api/axiosConfig";
+import { Routes, Route } from "react-router-dom";
+import allRoutes from "routes/allRoutes.js";
 
 const Workbench = ({ variants, transition }) => {
-  const tabs = [
-    { key: "new-project", name: "New project", component: TaskBarButton },
-    { key: "projects", name: "Projects", component: TaskBarButton },
-  ];
+  // const tabs = [
+  //   { key: "new-project", name: "New project", component: TaskBarButton },
+  //   { key: "projects", name: "Projects", component: TaskBarButton },
+  // ];
 
   let [active, setActive] = useState("new-project");
 
   let [projects, setProjects] = useState("");
 
+  const workbenchRoutes = allRoutes().find(
+    (route) => route.key === `/workbench`
+  ).nestedRoutes;
+
   //run with server
   console.log("render");
   useEffect(() => {
     console.log("resource type change");
-
+    let temp = null;
     const userId = 1;
-    setProjects(
-      axiosConfig
-        .get(`http://localhost:8080/projects?userAccountId=${userId}`)
-        .then((resp) => console.log(resp))
-        .catch((e) => console.error(`Error: ${e}`))
-    );
-    console.log(projects);
+    axiosConfig
+      .get(`http://localhost:8080/projects?userAccountId=${userId}`)
+      // .then((resp) => resp.json())
+      .then((resp) => (temp = resp.data))
+      .then((resp) => {
+        setProjects(temp);
+
+        console.log(temp);
+        console.log(workbenchRoutes);
+      })
+      .catch((e) => {
+        console.error(`Error: ${e}`);
+      });
   }, []);
 
   return (
@@ -42,9 +54,21 @@ const Workbench = ({ variants, transition }) => {
       variants={variants}
       transition={transition}
     >
-      <TaskBar onClick={setActive} tabs={tabs} />
-      {active === "new-project" && <NewProject />}
-      {active === "projects" && <Projects projects={projects} />}
+      <TaskBar />
+      {/* {active === "new-project" && <NewProject />}
+      {active === "projects" && <Projects projects={projects} />} */}
+
+      <Routes>
+        {workbenchRoutes.map((route) => (
+          <Route
+            key={route.key}
+            path={route.path}
+            element={<route.component />}
+            setProjects={setProjects}
+            projects={projects}
+          />
+        ))}
+      </Routes>
     </motion.div>
   );
 };

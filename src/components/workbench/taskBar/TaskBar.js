@@ -1,33 +1,26 @@
 import React from "react";
 import TaskBarButton from "./TaskBarButton";
-import Projects from "../projects/Projects";
-import { Route, Routes } from "react-router-dom";
+// import Projects from "../projects/Projects";
+import { Link } from "react-router-dom";
 
-// import allRoutes from "routes/allRoutes.js";
+import allRoutes from "routes/allRoutes.js";
 
-const TaskBar = ({ onClick, tabs }) => {
-  // const allRoutex = allRoutes;
+const workbenchRoutes = allRoutes().find(
+  (route) => route.key === `/workbench`
+).nestedRoutes;
+
+const TaskBar = () => {
   return (
     <div className="workbench__task-bar">
-      {tabs.map((tab) => (
-        <tab.component onClick={onClick} tab={tab}></tab.component>
+      {workbenchRoutes.map((route) => (
+        <Link
+          to={`/workbench${route.path}`}
+          key={route.key}
+          className="workbench__task-bar--button"
+        >
+          {route.name}
+        </Link>
       ))}
-      {/* <Routes>
-        <Route
-          path={`/projects`}
-          element={
-            <Projects
-            // isLogged={isLogged}
-            // setIsLogged={() => setIsLogged(true)}
-            // variants={pageVariants}
-            // transition={pageTransition}
-            // routes={routes}
-            />
-          }
-        />
-      </Routes> */}
-
-      {/* { key: "new-project", name: "New project", component: TaskBarButton }, */}
     </div>
   );
 };
