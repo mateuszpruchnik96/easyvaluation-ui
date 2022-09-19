@@ -3,3 +3,15 @@ export const signIn = () => {
     type: "SIGN_IN",
   };
 };
+
+export const signOut = () => {
+  return {
+    type: "SIGN_OUT",
+  };
+};
+
+export const fetchProjectsList = () => {
+  return {
+    type: "FECTH_PROJECTS",
+  };
+};

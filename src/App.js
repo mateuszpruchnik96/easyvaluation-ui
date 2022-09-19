@@ -23,6 +23,7 @@ function App() {
   // }, []);
 
   const isLogged = useSelector((state) => state.isLogged);
+  console.log(isLogged);
   const dispatch = useDispatch();
 
   const pageVariants = {

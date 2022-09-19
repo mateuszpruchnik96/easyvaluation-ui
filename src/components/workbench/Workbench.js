@@ -9,6 +9,8 @@ import axios from "axios";
 import axiosConfig from "../../../src/api/axiosConfig";
 import { Routes, Route } from "react-router-dom";
 import allRoutes from "routes/allRoutes.js";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProjects } from "./projectsSlice";
 
 const Workbench = ({ variants, transition }) => {
   // const tabs = [
@@ -24,26 +26,12 @@ const Workbench = ({ variants, transition }) => {
     (route) => route.key === `/workbench`
   ).nestedRoutes;
 
+  const dispatch = useDispatch();
+  const projectsX = useSelector((state) => state.projects);
+
   //run with server
   console.log("render");
-  useEffect(() => {
-    console.log("resource type change");
-    let temp = null;
-    const userId = 1;
-    axiosConfig
-      .get(`http://localhost:8080/projects?userAccountId=${userId}`)
-      // .then((resp) => resp.json())
-      .then((resp) => (temp = resp.data))
-      .then((resp) => {
-        setProjects(temp);
 
-        console.log(temp);
-        console.log(workbenchRoutes);
-      })
-      .catch((e) => {
-        console.error(`Error: ${e}`);
-      });
-  }, []);
 
   return (
     <motion.div

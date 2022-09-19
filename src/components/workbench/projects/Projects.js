@@ -1,29 +1,45 @@
 import React from "react";
 import axiosConfig from "../../../../src/api/axiosConfig";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectAllUserProjects,
+  getProjectsStatus,
+  getProjectsError,
+  fetchProjects,
+} from "../projectsSlice";
 
-const Projects = ({ projects, setProjects }) => {
-  // let userId = 1;
-  // let temp = null;
-  // axiosConfig
-  //   .get(`http://localhost:8080/projects?userAccountId=${userId}`)
-  //   .then((resp) => resp.json())
-  //   .then((resp) => setProjects(resp.data))
-  //   .catch((e) => {
-  //     console.error(`Error: ${e}`);
-  //   });
+const Projects = () => {
+  const dispatch = useDispatch();
+
+  const projects = useSelector(selectAllUserProjects);
+  const projectsStatus = useSelector(getProjectsStatus);
+  const error = useSelector(getProjectsError);
+
+  useEffect(() => {
+    console.log(projects);
+    console.log(projectsStatus);
+    console.log(error);
+    if (projectsStatus === "idle") {
+      dispatch(fetchProjects("1"));
+    }
+  }, [projectsStatus, dispatch]);
+
+  let content;
+  if (projectsStatus === "loading") {
+    content = <p>"Loading..."</p>;
+  } else if (projectsStatus === "succeeded") {
+    const orderedProjects = projects.slice();
+    // .sort((a, b) => b.date.localeCompare(a.date));
+    content = orderedProjects.map((project) => (
+      <p key={project.id} project={project} />
+    ));
+  } else if (projectsStatus === "failed") {
+    content = <p>{error}</p>;
+  }
 
   if (projects !== null) {
-    return (
-      <table>
-        {() =>
-          projects.map((project) => (
-            <tr>
-              <th>Projects</th>
-            </tr>
-          ))
-        }
-      </table>
-    );
+    return <div>{content}</div>;
   } else return <p>No projects found!</p>;
 };
 
