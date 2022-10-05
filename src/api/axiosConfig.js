@@ -3,6 +3,7 @@ import axios from "axios";
 let token = null;
 if (sessionStorage.easyValuationKey) {
   token = JSON.parse(sessionStorage.easyValuationKey).easyValuationToken;
+  console.log(token);
 } else {
   token = null;
 }

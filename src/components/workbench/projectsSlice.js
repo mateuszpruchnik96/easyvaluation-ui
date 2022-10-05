@@ -17,10 +17,12 @@ export const fetchProjects = createAsyncThunk(
       const response = await axiosConfig.get(
         `http://localhost:8080/projects?userAccountId=${userId}`
       );
-      console.log("Fullfilled");
+      // state.status = "succeeded";
+      await console.log("Fulfilled", response.data);
 
-      return response.data;
+      return [...response.data];
     } catch (error) {
+      // state.status = "failed";
       return error.status;
     }
   }
@@ -63,13 +65,19 @@ const projectsSlice = createSlice({
     builder
       .addCase(fetchProjects.pending, (state, action) => {
         state.status = "loading";
+        // console.log("ExR loading");
       })
       .addCase(fetchProjects.fulfilled, (state, action) => {
         state.status = "succeeded";
-        return action.payload;
+        // state.projects = action.payload;
+        console.log("ExR succeeded", state.status, action);
+
+        state.projects = action.payload;
       })
       .addCase(fetchProjects.rejected, (state, action) => {
         state.status = "failed";
+        console.log("ExR failed");
+
         state.error = action.error.message;
       });
   },

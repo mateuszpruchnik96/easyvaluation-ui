@@ -32,7 +32,9 @@ const Projects = () => {
     const orderedProjects = projects.slice();
     // .sort((a, b) => b.date.localeCompare(a.date));
     content = orderedProjects.map((project) => (
-      <p key={project.id} project={project} />
+      <p key={project.id} project={project.id}>
+        {project.id} {project.openingProjectTime}
+      </p>
     ));
   } else if (projectsStatus === "failed") {
     content = <p>{error}</p>;
