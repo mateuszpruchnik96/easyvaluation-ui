@@ -11,6 +11,12 @@ const loginApi = async function (url, login, password) {
 
     if (res.status !== 200) throw new Error("Problem...", res);
 
+    localStorage.setItem("easyValuationToken", res.data.easyValuationToken);
+    localStorage.setItem(
+      "easyValuationRefreshToken",
+      res.data.easyValuationRefreshToken
+    );
+
     console.log(JSON.stringify(res.data));
     return JSON.stringify(res.data);
   } catch (error) {

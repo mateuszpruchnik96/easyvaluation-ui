@@ -13,17 +13,20 @@ export const fetchProjects = createAsyncThunk(
   `projects/fetchProjects`,
   async (userId) => {
     console.log("Loading");
+    console.log(axiosConfig.token);
     try {
       const response = await axiosConfig.get(
         `http://localhost:8080/projects?userAccountId=${userId}`
       );
       // state.status = "succeeded";
-      await console.log("Fulfilled", response.data);
+
+      console.log("Fulfilled", response.status);
 
       return [...response.data];
     } catch (error) {
       // state.status = "failed";
-      return error.status;
+      console.log(error.response);
+      return error.reponse.status;
     }
   }
 );

@@ -8,7 +8,7 @@ const instance = axios.create({
 instance.defaults.headers.common[`Authorization`] = `Bearer ${token}`;
 instance.defaults.headers.common["Content-Type"] = "application/json";
 
-const axiosAuth = function () {
+const axiosRefresh = function () {
   instance
     .post(`http://localhost:8080/refreshtoken`)
     .then((resp) => console.log(resp))

@@ -18,7 +18,6 @@ const LoginPanel = ({ setIsLogged, routes }) => {
 
   const isLogged = useSelector((state) => state.isLogged);
 
-
   const dispatch = useDispatch();
 
   const handleSubmit = async (e, state) => {
@@ -36,8 +35,11 @@ const LoginPanel = ({ setIsLogged, routes }) => {
         // for(const key of Object.keys(res){
         // })
         // document.cookies = res.headers.cookies;
+        // const resx = JSON.parse(res);
+        // console.log(res);
 
-        sessionStorage.setItem("easyValuationKey", res);
+        // localStorage.setItem("easyValuationToken", res);
+        // localStorage.setItem("easyValuationRefreshToken", res);
         // setIsLogged();
         dispatch(signIn());
         navigate(`/workbench`);
