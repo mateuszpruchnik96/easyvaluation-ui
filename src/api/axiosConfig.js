@@ -50,7 +50,7 @@ instance.interceptors.response.use(
         // .then((resp) => console.log(resp))
         .catch((e) => console.error(`ErrorX: ${e}`));
 
-      console.log(refreshResponse.status);
+      console.log(refreshResponse);
 
       if (refreshResponse.status != 200) {
         throw new Error(`Refresh response status: ${refreshResponse.status}`);
