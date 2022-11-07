@@ -173,6 +173,7 @@ body {
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      overflow: hidden;
 
       width: 20rem;
       height: 30rem;
@@ -184,6 +185,67 @@ body {
       // border: 4px solid $color1;
       outline: none;
       border-radius: 1rem;
+
+      &--pending {
+        // background-color: #001c42;
+        // filter: blur(5px);
+        // position: relative;
+
+        & .pending-background {
+          position: absolute;
+          opacity: 1;
+          height: 98%;
+          width: 98%;
+          background-color: $color3 0.1;
+          right: 0;
+          bottom: 0;
+          transform: translate(-1%, -1%);
+
+          backdrop-filter: blur(3px);
+          // z-index: 5;
+          transition: all 0.5s;
+          border-radius: inherit;
+        }
+
+        .dots {
+          // height: 100%;
+          // width: 100%;
+          position: absolute;
+          top: 50%;
+          // left: 50%;
+          transform: translate(-50%, -50%);
+
+          span {
+            width: 1rem;
+            height: 1rem;
+            margin: 0 0.3rem;
+            background-color: $color4;
+            border-radius: 50%;
+            display: inline-block;
+            animation-name: dots;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            filter: none;
+
+            &:nth-child(2) {
+              background-color: $color1;
+              animation-delay: 0.4s;
+            }
+            &:nth-child(3) {
+              background-color: $color5;
+              animation-delay: 0.8s;
+            }
+
+            @keyframes dots {
+              50% {
+                opacity: 0;
+                transform: scale(0.7) translateY(0.6rem);
+              }
+            }
+          }
+        }
+      }
 
       h2 {
         font-size: 1.8rem;

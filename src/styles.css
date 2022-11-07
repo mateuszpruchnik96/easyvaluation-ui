@@ -25,21 +25,22 @@ body {
   width: 100vw;
   padding: 0 2rem;
 }
+
 .header__logo {
   box-sizing: border-box;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   color: #f8f9fa;
   font-weight: 700;
   font-size: 1.6rem;
 }
+
 .header__navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 3rem;
 }
+
 .header__navbar--link, .header__navbar--btn {
   display: flex;
   align-items: center;
@@ -52,6 +53,7 @@ body {
   border: none;
   color: #f8f9fa;
 }
+
 .header__navbar--link:hover, .header__navbar--link:active, .header__navbar--btn:hover, .header__navbar--btn:active {
   cursor: pointer;
 }
@@ -65,6 +67,7 @@ body {
   background-position: center center;
   position: relative;
 }
+
 .homeContainer .landing {
   padding: 3rem;
   width: 800px;
@@ -75,10 +78,12 @@ body {
   gap: 4rem;
   background-size: cover;
 }
+
 .homeContainer .landing h1,
 .homeContainer .landing p {
   padding-left: 40%;
 }
+
 .homeContainer .landing h1 {
   font-weight: 700;
   font-size: 4rem;
@@ -88,6 +93,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .homeContainer .landing p {
   grid-column: 1/3;
   grid-row: 2;
@@ -95,6 +101,7 @@ body {
   line-height: 1.6;
   font-size: 1.2rem;
 }
+
 .homeContainer .login,
 .homeContainer .registration {
   position: absolute;
@@ -102,6 +109,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%) !important;
 }
+
 .homeContainer .login__login-panel, .homeContainer .login__registration-panel,
 .homeContainer .registration__login-panel,
 .homeContainer .registration__registration-panel {
@@ -109,6 +117,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  overflow: hidden;
   width: 20rem;
   height: 30rem;
   padding: 1rem;
@@ -117,12 +126,75 @@ body {
   outline: none;
   border-radius: 1rem;
 }
+
+.homeContainer .login__login-panel--pending .pending-background, .homeContainer .login__registration-panel--pending .pending-background,
+.homeContainer .registration__login-panel--pending .pending-background,
+.homeContainer .registration__registration-panel--pending .pending-background {
+  position: absolute;
+  opacity: 1;
+  height: 98%;
+  width: 98%;
+  background-color: #edf2f4 0.1;
+  right: 0;
+  bottom: 0;
+  transform: translate(-1%, -1%);
+  backdrop-filter: blur(3px);
+  transition: all 0.5s;
+  border-radius: inherit;
+}
+
+.homeContainer .login__login-panel--pending .dots, .homeContainer .login__registration-panel--pending .dots,
+.homeContainer .registration__login-panel--pending .dots,
+.homeContainer .registration__registration-panel--pending .dots {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.homeContainer .login__login-panel--pending .dots span, .homeContainer .login__registration-panel--pending .dots span,
+.homeContainer .registration__login-panel--pending .dots span,
+.homeContainer .registration__registration-panel--pending .dots span {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0.3rem;
+  background-color: #ef233c;
+  border-radius: 50%;
+  display: inline-block;
+  animation-name: dots;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  filter: none;
+}
+
+.homeContainer .login__login-panel--pending .dots span:nth-child(2), .homeContainer .login__registration-panel--pending .dots span:nth-child(2),
+.homeContainer .registration__login-panel--pending .dots span:nth-child(2),
+.homeContainer .registration__registration-panel--pending .dots span:nth-child(2) {
+  background-color: #2b2d42;
+  animation-delay: 0.4s;
+}
+
+.homeContainer .login__login-panel--pending .dots span:nth-child(3), .homeContainer .login__registration-panel--pending .dots span:nth-child(3),
+.homeContainer .registration__login-panel--pending .dots span:nth-child(3),
+.homeContainer .registration__registration-panel--pending .dots span:nth-child(3) {
+  background-color: #d90429;
+  animation-delay: 0.8s;
+}
+
+@keyframes dots {
+  50% {
+    opacity: 0;
+    transform: scale(0.7) translateY(0.6rem);
+  }
+}
+
 .homeContainer .login__login-panel h2, .homeContainer .login__registration-panel h2,
 .homeContainer .registration__login-panel h2,
 .homeContainer .registration__registration-panel h2 {
   font-size: 1.8rem;
   margin: 1rem 0;
 }
+
 .homeContainer .login__login-panel a, .homeContainer .login__registration-panel a,
 .homeContainer .registration__login-panel a,
 .homeContainer .registration__registration-panel a {
@@ -130,6 +202,7 @@ body {
   margin: 1rem 0;
   color: #d90429;
 }
+
 .homeContainer .login__login-panel form, .homeContainer .login__registration-panel form,
 .homeContainer .registration__login-panel form,
 .homeContainer .registration__registration-panel form {
@@ -138,13 +211,14 @@ body {
   justify-content: space-between;
   gap: 0.3rem;
 }
-.homeContainer .login__login-panel form input[type=text],
-.homeContainer .login__login-panel form input[type=password], .homeContainer .login__registration-panel form input[type=text],
-.homeContainer .login__registration-panel form input[type=password],
-.homeContainer .registration__login-panel form input[type=text],
-.homeContainer .registration__login-panel form input[type=password],
-.homeContainer .registration__registration-panel form input[type=text],
-.homeContainer .registration__registration-panel form input[type=password] {
+
+.homeContainer .login__login-panel form input[type="text"],
+.homeContainer .login__login-panel form input[type="password"], .homeContainer .login__registration-panel form input[type="text"],
+.homeContainer .login__registration-panel form input[type="password"],
+.homeContainer .registration__login-panel form input[type="text"],
+.homeContainer .registration__login-panel form input[type="password"],
+.homeContainer .registration__registration-panel form input[type="text"],
+.homeContainer .registration__registration-panel form input[type="password"] {
   height: 2rem;
   box-sizing: border-box;
   background-color: #edf2f4;
@@ -155,20 +229,22 @@ body {
   justify-content: center;
   margin-bottom: 1.5rem;
 }
-.homeContainer .login__login-panel form input[type=text]:focus-visible,
-.homeContainer .login__login-panel form input[type=password]:focus-visible, .homeContainer .login__registration-panel form input[type=text]:focus-visible,
-.homeContainer .login__registration-panel form input[type=password]:focus-visible,
-.homeContainer .registration__login-panel form input[type=text]:focus-visible,
-.homeContainer .registration__login-panel form input[type=password]:focus-visible,
-.homeContainer .registration__registration-panel form input[type=text]:focus-visible,
-.homeContainer .registration__registration-panel form input[type=password]:focus-visible {
+
+.homeContainer .login__login-panel form input[type="text"]:focus-visible,
+.homeContainer .login__login-panel form input[type="password"]:focus-visible, .homeContainer .login__registration-panel form input[type="text"]:focus-visible,
+.homeContainer .login__registration-panel form input[type="password"]:focus-visible,
+.homeContainer .registration__login-panel form input[type="text"]:focus-visible,
+.homeContainer .registration__login-panel form input[type="password"]:focus-visible,
+.homeContainer .registration__registration-panel form input[type="text"]:focus-visible,
+.homeContainer .registration__registration-panel form input[type="password"]:focus-visible {
   color: #2b2d42;
   border: 2px solid #2b426d;
   outline: none;
 }
-.homeContainer .login__login-panel form input[type=submit], .homeContainer .login__registration-panel form input[type=submit],
-.homeContainer .registration__login-panel form input[type=submit],
-.homeContainer .registration__registration-panel form input[type=submit] {
+
+.homeContainer .login__login-panel form input[type="submit"], .homeContainer .login__registration-panel form input[type="submit"],
+.homeContainer .registration__login-panel form input[type="submit"],
+.homeContainer .registration__registration-panel form input[type="submit"] {
   background-color: #ef233c;
   border: none;
   color: #f8f9fa;
@@ -177,9 +253,10 @@ body {
   height: 2rem;
   margin-top: 0.7rem;
 }
-.homeContainer .login__login-panel form input[type=submit]:hover, .homeContainer .login__registration-panel form input[type=submit]:hover,
-.homeContainer .registration__login-panel form input[type=submit]:hover,
-.homeContainer .registration__registration-panel form input[type=submit]:hover {
+
+.homeContainer .login__login-panel form input[type="submit"]:hover, .homeContainer .login__registration-panel form input[type="submit"]:hover,
+.homeContainer .registration__login-panel form input[type="submit"]:hover,
+.homeContainer .registration__registration-panel form input[type="submit"]:hover {
   background-color: #d90429;
   filter: brightness(95%);
   cursor: pointer;
@@ -195,6 +272,7 @@ body {
   gap: 2rem;
   background-color: #edf2f4;
 }
+
 .workbench__task-bar {
   display: flex;
   flex-direction: column;
@@ -210,6 +288,7 @@ body {
   position: relative;
   color: #edf2f4;
 }
+
 .workbench__task-bar--button {
   background: #8b94a4;
   border: none;
@@ -220,10 +299,12 @@ body {
   padding: 0.4rem 1rem;
   margin: 0 1rem;
 }
+
 .workbench__task-bar--button:hover, .workbench__task-bar--button:active {
   cursor: pointer;
   background: #e76054;
 }
+
 .workbench__desk {
   display: flex;
   border: 4px solid black;
@@ -238,11 +319,13 @@ body {
   padding: 1rem;
   gap: 0.5rem;
 }
+
 .display-box__material {
   display: flex;
   flex-direction: row;
   border: 2px solid green;
 }
+
 .display-box__material p:first-child {
   border-right: 2px solid green;
-}/*# sourceMappingURL=styles.css.map */
+}

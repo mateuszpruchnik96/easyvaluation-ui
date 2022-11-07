@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NavBar = ({ routes, isLogged }) => {
   let navbar;
 
-  if (!isLogged) {
+  if (!isLogged || isLogged === "PENDING") {
     navbar = (
       <div className="header__navbar">
         {routes

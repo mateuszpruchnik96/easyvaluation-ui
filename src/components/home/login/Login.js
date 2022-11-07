@@ -23,7 +23,12 @@ const Login = ({ variants, transition, setIsLogged, routes }) => {
         variants={variants}
         transition={transition}
       >
-        <LoginPanel setIsLogged={setIsLogged} routes={routes} />
+        <LoginPanel
+          setIsLogged={setIsLogged}
+          routes={routes}
+          variants={variants}
+          transition={transition}
+        />
       </motion.div>
     </div>
   );

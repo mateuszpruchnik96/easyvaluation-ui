@@ -19,7 +19,7 @@ const instance = axios.create({
 instance.defaults.headers.common["Content-Type"] = "application/json";
 
 instance.interceptors.request.use(async function (request) {
-  console.log("Request interceptor");
+  // console.log("Request interceptor");
 
   request.headers.Authorization = getAuthorizationHeader();
 
@@ -53,7 +53,7 @@ instance.interceptors.response.use(
         // .then((resp) => console.log(resp))
         .catch((e) => console.error(`ErrorX: ${e}`));
 
-      console.log(refreshResponse);
+      // console.log(refreshResponse);
 
       if (refreshResponse.status != 200) {
         throw new Error(`Refresh response status: ${refreshResponse.status}`);
@@ -68,10 +68,17 @@ instance.interceptors.response.use(
           refreshResponse.data.easyValuationRefreshToken
         );
 
+        // const newResponse = await axios.
         // console.log(refreshResponse.data.easyValuationToken);
         // console.log(localStorage.easyValuationToken);
 
-        return () => axios(config);
+        const newConfig = error.config;
+        newConfig.headers.Authorization = `Bearer ${refreshResponse.data.easyValuationToken}`;
+        // console.log(refreshResponse.data.easyValuationToken);
+        // console.log(newConfig);
+        // console.log(error.config);
+
+        return axios(newConfig);
 
         // return refreshResponse;
         // dispatch(signIn());
