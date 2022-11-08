@@ -8,6 +8,8 @@ import {
   Routes,
   Route,
   // useLocation,
+  useNavigate,
+  Navigate,
 } from "react-router-dom";
 import React from "react";
 
@@ -23,6 +25,8 @@ function App() {
   // }, []);
 
   const isLogged = useSelector((state) => state.isLogged);
+  // const location = useLocation();
+  // const navigate = useNavigate();
   console.log(isLogged);
   const dispatch = useDispatch();
 
@@ -54,14 +58,29 @@ function App() {
               <Route
                 key={route.key}
                 path={route.path}
+                authed={route.authed}
                 element={
-                  <route.component
-                    // isLogged={isLogged}
-                    // setIsLogged={() => setIsLogged(true)}
-                    variants={pageVariants}
-                    transition={pageTransition}
-                    routes={routes}
-                  ></route.component>
+                  route.authed === true ? (
+                    isLogged === true ? (
+                      <route.component
+                        variants={pageVariants}
+                        transition={pageTransition}
+                        routes={routes}
+                      ></route.component>
+                    ) : (
+                      <Navigate
+                        to="/login"
+                        // replace
+                        // state={{ path: location.pathname }}
+                      />
+                    )
+                  ) : (
+                    <route.component
+                      variants={pageVariants}
+                      transition={pageTransition}
+                      routes={routes}
+                    ></route.component>
+                  )
                 }
               >
                 {/* {

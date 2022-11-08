@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./store";
+import store, { persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 // let token = JSON.parse(sessionStorage.easyValuationKey).easyValuationToken;
 // console.log(token);
@@ -15,7 +16,9 @@ import store from "./store";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -6,11 +6,12 @@ import Login from "components/home/login/Login";
 import Registration from "components/home/registration/Registration";
 
 const allRoutes = () => [
-  { key: "/", path: "/", name: "Home", component: Landing },
+  { key: "/", path: "/", name: "Home", authed: false, component: Landing },
   {
     key: "/workbench",
     path: "/workbench/*",
     name: "Workbench",
+    authed: true,
     component: Workbench,
     nestedRoutes: [
       // {
@@ -33,11 +34,19 @@ const allRoutes = () => [
       },
     ],
   },
-  { key: "/login", path: "/login", name: "Login", component: Login },
+
+  {
+    key: "/login",
+    path: "/login",
+    name: "Login",
+    authed: false,
+    component: Login,
+  },
   {
     key: "/registration",
     path: "/registration",
     name: "Registration",
+    authed: false,
     component: Registration,
   },
 
