@@ -12,11 +12,12 @@ const workbenchRoutes = allRoutes().find(
 const TaskBar = () => {
   return (
     <div className="workbench__task-bar">
+      <div className="workbench__task-bar__header">Easy Valuation</div>
       {workbenchRoutes.map((route) => (
         <Link
           to={`/workbench${route.path}`}
           key={route.key}
-          className="workbench__task-bar--button"
+          className="workbench__task-bar__button"
         >
           {route.name}
         </Link>

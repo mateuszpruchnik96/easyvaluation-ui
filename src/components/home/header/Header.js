@@ -1,11 +1,11 @@
 import React from "react";
 import NavBar from "./NavBar";
 
-const Header = ({ routes, isLogged }) => {
+const Header = ({ routes}) => {
   return (
     <div className="header">
       <div className="header__logo">Easy Valuation</div>
-      <NavBar routes={routes} isLogged={isLogged} />
+      <NavBar routes={routes} />
     </div>
   );
 };

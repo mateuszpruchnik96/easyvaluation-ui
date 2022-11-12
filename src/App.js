@@ -11,22 +11,15 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
+import axiosRefreshConfig from "./api/axiosRefreshConfig.js";
 
 import allRoutes from "routes/allRoutes.js";
+import { signOut } from "actions/index.js";
 
 function App() {
-  // const [isLogged, setIsLogged] = useState(false);
-  // useEffect(() => {
-  //   let key = sessionStorage.getItem("easyValuationKey");
-  //   if (key) {
-  //     setIsLogged(true);
-  //   }
-  // }, []);
-
   const isLogged = useSelector((state) => state.isLogged);
-  // const location = useLocation();
-  // const navigate = useNavigate();
+
   console.log(isLogged);
   const dispatch = useDispatch();
 
@@ -47,6 +40,36 @@ function App() {
   };
 
   const routes = allRoutes();
+
+  useEffect(() => {
+    window.onbeforeunload = checkValidation();
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
+
+  const checkValidation = async (e) => {
+    // e.preventDefault();
+    // e.returnValue = "";
+
+    try {
+      console.log("REFRESH TOKEN CHECK");
+      await axiosRefreshConfig.post(
+        // `http://localhost:8080/refreshtoken`,
+        "",
+        localStorage.easyValuationRefreshToken,
+        {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        }
+      );
+    } catch (error) {
+      console.log("dispatch logout");
+      dispatch(signOut());
+    }
+  };
 
   return (
     <Router>

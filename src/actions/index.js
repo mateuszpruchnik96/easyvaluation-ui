@@ -5,6 +5,7 @@ export const signIn = () => {
 };
 
 export const signOut = () => {
+  localStorage.clear();
   return {
     type: "SIGN_OUT",
   };

@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "actions";
 
-const NavBar = ({ routes, isLogged }) => {
+const NavBar = ({ routes }) => {
   let navbar;
+
+  const isLogged = useSelector((state) => state.isLogged);
+  console.log(isLogged);
+  const dispatch = useDispatch();
 
   if (!isLogged || isLogged === "PENDING") {
     navbar = (
@@ -39,7 +45,12 @@ const NavBar = ({ routes, isLogged }) => {
               {route.name}
             </Link>
           ))}
-        <button className="header__navbar--btn">Logout</button>
+        <button
+          className="header__navbar--btn"
+          onClick={() => dispatch(signOut())}
+        >
+          Logout
+        </button>
       </div>
     );
   }

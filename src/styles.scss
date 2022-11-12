@@ -16,6 +16,8 @@ $gray-color: #212529;
 $gray-color-dark: #131618;
 $hray-color-light: #495057;
 
+$transparent-gray-1: hsla(0, 0%, 100%, 0.3);
+
 $text-white: #f8f9fa;
 $text-black: #212529;
 
@@ -372,13 +374,33 @@ body {
 
     color: $color3;
 
-    &--button {
-      background: $color2;
+    &__header {
+      color: $color3;
+      font-weight: 350;
+      font-size: 1.1rem;
+      width: 100%;
+      text-align: center;
+      padding: 1rem 0;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0.8rem;
+        width: calc(100% - 1.6rem);
+        height: 2px;
+        background-color: $transparent-gray-1;
+      }
+    }
+
+    &__button {
+      // background: $color2;
       border: none;
       outline: none;
 
       color: $color3;
-      font-weight: 400;
+      font-weight: 300;
       font-size: 1.1rem;
 
       padding: 0.4rem 1rem;
@@ -392,6 +414,11 @@ body {
       &:active {
         cursor: pointer;
         background: $secondary-color-light;
+      }
+
+      &--active {
+        background-color: $transparent-gray-1;
+        border-radius: 0.2rem;
       }
     }
   }

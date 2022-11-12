@@ -2,10 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import Header from "components/home/header/Header";
 
-const Landing = ({ variants, routes, transition, isLogged }) => {
+const Landing = ({ variants, routes, transition }) => {
   return (
     <div className="homeContainer">
-      <Header routes={routes} isLogged={isLogged} />
+      <Header routes={routes} />
 
       <motion.div
         className="landing"

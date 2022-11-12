@@ -1,8 +1,4 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
-// import { signIn } from "actions";
-
-// const dispatch = useDispatch();
 
 export const getToken = () =>
   localStorage.getItem("easyValuationToken")
@@ -15,12 +11,10 @@ const instance = axios.create({
   baseURL: "http://localhost:8080/",
   withCredentials: true,
 });
-// instance.defaults.headers.common[`Authorization`] = `Bearer ${token}`;
+
 instance.defaults.headers.common["Content-Type"] = "application/json";
 
 instance.interceptors.request.use(async function (request) {
-  // console.log("Request interceptor");
-
   request.headers.Authorization = getAuthorizationHeader();
 
   return request;
@@ -28,11 +22,9 @@ instance.interceptors.request.use(async function (request) {
 
 instance.interceptors.response.use(
   async function (response) {
-    // console.log("Response interceptor");
-    // console.log(response);
-
     return response;
   },
+
   async (error) => {
     console.log("Response error interceptor", error);
     if (error.response.status === 401) {

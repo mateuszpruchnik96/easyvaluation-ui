@@ -289,20 +289,44 @@ body {
   color: #edf2f4;
 }
 
-.workbench__task-bar--button {
-  background: #8b94a4;
+.workbench__task-bar__header {
+  color: #edf2f4;
+  font-weight: 350;
+  font-size: 1.1rem;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  position: relative;
+}
+
+.workbench__task-bar__header::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0.8rem;
+  width: calc(100% - 1.6rem);
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.workbench__task-bar__button {
   border: none;
   outline: none;
   color: #edf2f4;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 1.1rem;
   padding: 0.4rem 1rem;
   margin: 0 1rem;
 }
 
-.workbench__task-bar--button:hover, .workbench__task-bar--button:active {
+.workbench__task-bar__button:hover, .workbench__task-bar__button:active {
   cursor: pointer;
   background: #e76054;
+}
+
+.workbench__task-bar__button--active {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 0.2rem;
 }
 
 .workbench__desk {
