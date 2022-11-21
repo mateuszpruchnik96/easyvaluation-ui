@@ -47,7 +47,7 @@ instance.interceptors.response.use(
 
       // console.log(refreshResponse);
 
-      if (refreshResponse.status != 200) {
+      if (refreshResponse.status !== 200) {
         throw new Error(`Refresh response status: ${refreshResponse.status}`);
       } else {
         localStorage.setItem(

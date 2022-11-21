@@ -60,6 +60,35 @@ body {
   gap: 3rem;
 }
 
+// PREDEFINDED
+
+button,
+input[type="submit"] {
+  background: $color2;
+  border: none;
+  outline: none;
+
+  color: $color3;
+  font-weight: 300;
+  letter-spacing: 1.4px;
+  font-size: 1.1rem;
+
+  padding: 0.4rem 1rem;
+
+  border-radius: 0.2rem;
+  // margin: 0 1rem;
+
+  &:link,
+  &:visited {
+  }
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+    background: $secondary-color-light;
+  }
+}
+
 //HEADER
 .header {
   display: flex;
@@ -353,14 +382,14 @@ body {
 .workbench {
   display: flex;
   width: 100%;
-  gap: 2rem;
+  // gap: 2rem;
 
   background-color: $color3;
 
   &__task-bar {
     display: flex;
     flex-direction: column;
-    width: 14rem;
+    min-width: 14rem;
     height: 100vh;
     gap: 0.2rem;
 
@@ -427,6 +456,90 @@ body {
     display: flex;
     border: 4px solid black;
     flex: 1 0 auto;
+  }
+
+  .projects {
+    width: 100%;
+
+    margin: 4rem 4rem;
+    border-radius: 0.4rem 0.4rem 0 0;
+    overflow: hidden;
+
+    &__project-bar {
+      display: flex;
+      width: 100%;
+
+      padding: 0.3rem 0.8rem;
+
+      // border: 1px $color2 solid;
+
+      &__id {
+        width: 2rem;
+        font-weight: inherit;
+      }
+
+      &__date {
+        width: 12rem;
+        font-weight: inherit;
+      }
+
+      &:first-child {
+        background-color: $color4;
+        font-weight: 400;
+        color: $color3;
+        letter-spacing: 2px;
+      }
+
+      &:nth-child(even) {
+        background-color: $color2;
+        color: $color3;
+      }
+    }
+  }
+
+  .new-project {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    padding: 4rem 4rem;
+    width: 100%;
+    gap: 2rem;
+
+    &__header {
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 2rem;
+    }
+
+    &__form {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: repeat(3, auto);
+      gap: 0.8rem;
+
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        font-weight: 300;
+        letter-spacing: 1.2px;
+
+        input[type="text"],
+        input[type="date"] {
+          padding: 0.4rem 1rem;
+        }
+      }
+
+      &__desc {
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+
+      &__button {
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+    }
   }
 }
 
