@@ -26,12 +26,13 @@ const Workbench = ({ variants, transition }) => {
     (route) => route.key === `/workbench`
   ).nestedRoutes;
 
+  let idRoutes = workbenchRoutes[0].nestedRoutes;
+
   const dispatch = useDispatch();
   const projectsX = useSelector((state) => state.projects);
 
   //run with server
   console.log("render");
-
 
   return (
     <motion.div
@@ -54,6 +55,15 @@ const Workbench = ({ variants, transition }) => {
             element={<route.component />}
             setProjects={setProjects}
             projects={projects}
+          />
+        ))}
+        {idRoutes.map((route) => (
+          <Route
+            key={route.key}
+            path={`/projects${route.path}`}
+            element={<route.component />}
+            // setProjects={setProjects}
+            // projects={projects}
           />
         ))}
       </Routes>

@@ -364,6 +364,7 @@ input[type="submit"]:active {
 .workbench .projects__project-bar {
   display: flex;
   width: 100%;
+  gap: 1rem;
   padding: 0.3rem 0.8rem;
 }
 
@@ -387,6 +388,35 @@ input[type="submit"]:active {
 .workbench .projects__project-bar:nth-child(even) {
   background-color: #8b94a4;
   color: #edf2f4;
+}
+
+.workbench .project {
+  background-color: #8b94a4;
+  margin: 1rem 2rem;
+}
+
+.workbench .project__operation {
+  background-color: #ef233c;
+}
+
+.workbench .project__operation__desc {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.workbench .project__operation__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+  background-color: #d90429;
+}
+
+.workbench .project__operation__body--show {
+  height: auto;
+  max-height: 100rem;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(1, 0, 1, 0);
 }
 
 .workbench .new-project {

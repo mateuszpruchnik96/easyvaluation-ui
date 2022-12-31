@@ -1,3 +1,5 @@
+import { storage } from "store";
+
 const isLoggedReducer = (state = false, action) => {
   switch (action.type) {
     case "SIGN_IN":

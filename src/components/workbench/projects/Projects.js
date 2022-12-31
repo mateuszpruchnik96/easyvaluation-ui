@@ -9,6 +9,7 @@ import {
   fetchProjects,
 } from "../projectsSlice";
 import ProjectBar from "./ProjectBar";
+import ProjectEditor from "./projectEditor/ProjectEditor";
 
 const Projects = () => {
   const dispatch = useDispatch();
@@ -46,13 +47,15 @@ const Projects = () => {
     content = <p>{error}</p>;
   }
 
+  let table = (
+    <div className="projects">
+      {header}
+      {content}
+    </div>
+  );
+
   if (projects !== null) {
-    return (
-      <div className="projects">
-        {header}
-        {content}
-      </div>
-    );
+    return table;
   } else return <p>No projects found!</p>;
 };
 

@@ -16,7 +16,8 @@ export const fetchProjects = createAsyncThunk(
     console.log(axiosConfig.token);
     try {
       const response = await axiosConfig.get(
-        `http://localhost:8080/projects?userAccountId=${userId}`
+        `http://localhost:8080/projects`
+        // `http://localhost:8080/projects?userAccountId=${userId}`
       );
       // state.status = "succeeded";
 

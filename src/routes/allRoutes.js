@@ -4,6 +4,8 @@ import Projects from "components/workbench/projects/Projects";
 import NewProject from "components/workbench/newProject/NewProject";
 import Login from "components/home/login/Login";
 import Registration from "components/home/registration/Registration";
+import ProjectEditor from "components/workbench/projects/projectEditor/ProjectEditor";
+import React from "react";
 
 const allRoutes = () => [
   { key: "/", path: "/", name: "Home", authed: false, component: Landing },
@@ -25,6 +27,15 @@ const allRoutes = () => [
         path: "/projects",
         name: "Your Projects",
         component: Projects,
+
+        nestedRoutes: [
+          {
+            key: "/:id",
+            path: "/:id",
+            name: "Project",
+            component: ProjectEditor,
+          },
+        ],
       },
       {
         key: "/newproject",
