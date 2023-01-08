@@ -5,6 +5,7 @@ $main-color-light: #596d9c;
 $color1: #2b2d42;
 $color2: #8b94a4;
 $color3: #edf2f4;
+
 $color4: #ef233c;
 $color5: #d90429;
 
@@ -499,30 +500,50 @@ input[type="submit"] {
   }
 
   .project {
-    background-color: $color2;
+    background-color: $text-white;
     // width: 100%;
     margin: 1rem 2rem;
+    padding: 0.8rem;
+    border: 1px solid $color2;
+    border-radius: 0.2rem;
+    box-shadow: $color1 0 0.1rem 0.5rem -0.2rem;
+
     &__operation {
-      background-color: $color4;
+      // background-color: $color4;
+
       &__desc {
         // background-color: $color1;
         display: flex;
         justify-content: space-between;
         cursor: pointer;
+        border-bottom: 1px solid $color2;
+        padding: 0.3rem;
       }
 
       &__body {
         max-height: 0;
         overflow: hidden;
         transition: all 0.5s cubic-bezier(0, 1, 0, 1);
-        background-color: $color5;
+        // background-color: $color5;
 
         &--show {
           height: auto;
           max-height: 100rem;
           overflow: hidden;
-
           transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+          padding: 0.8rem 0;
+        }
+
+        &__content {
+          width: 100%;
+          min-height: 12rem;
+          height: fit-content;
+          resize: none;
+          overflow: auto;
+
+          &:focus-visible {
+            outline: none;
+          }
         }
       }
     }

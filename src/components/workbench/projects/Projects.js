@@ -23,7 +23,7 @@ const Projects = () => {
     console.log(projectsStatus);
     console.log(error);
     if (projectsStatus === "idle") {
-      dispatch(fetchProjects("1"));
+      dispatch(fetchProjects());
     }
   }, [projectsStatus, dispatch]);
 

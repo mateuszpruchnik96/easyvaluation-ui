@@ -6,6 +6,7 @@ import {
   getProjectError,
   fetchProject,
   selectProjectOperations,
+  updateProject,
 } from "./projectEditorSlice";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -40,12 +41,6 @@ const ProjectEditor = () => {
     project != null
       ? (projectX = new ProjectClass(...Object.values(project)))
       : (projectX = null);
-    // operationsList = (
-    //   <div>
-    //     {project.operationList.map((operation) => (
-    //       <Operation operation={operation} />
-    //     ))}
-    //   </div>
   }, [projectStatus, dispatch]);
 
   return (
@@ -62,6 +57,13 @@ const ProjectEditor = () => {
               />
             ))
           : ""}
+        <button
+          onClick={() => {
+            dispatch(updateProject(project));
+          }}
+        >
+          Save the project
+        </button>
       </div>
     </div>
   );

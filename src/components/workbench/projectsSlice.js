@@ -11,7 +11,7 @@ const initialState = {
 
 export const fetchProjects = createAsyncThunk(
   `projects/fetchProjects`,
-  async (userId) => {
+  async () => {
     console.log("Loading");
     console.log(axiosConfig.token);
     try {

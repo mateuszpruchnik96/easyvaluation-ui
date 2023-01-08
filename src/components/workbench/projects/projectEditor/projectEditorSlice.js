@@ -16,7 +16,7 @@ export const fetchProject = createAsyncThunk(
     console.log(axiosConfig.token);
     try {
       const response = await axiosConfig.get(
-        `http://localhost:8080/projects/project?projectId=${projectId}`
+        `http://localhost:8080/projects/project_with_items?projectId=${projectId}`
       );
       console.log("Fulfilled", response);
 
@@ -31,8 +31,9 @@ export const fetchProject = createAsyncThunk(
 export const updateProject = createAsyncThunk(
   `projectEditor/updateProject`,
   async (project) => {
-    console.log("Loading");
+    console.log("Saving...");
     console.log(axiosConfig.token);
+    console.log(project);
     try {
       const response = await axiosConfig.post(
         `http://localhost:8080/projects`,
@@ -54,28 +55,16 @@ const projectEditorSlice = createSlice({
   name: "project",
   initialState,
   reducers: {
-    saveProject: {
+    saveProjectLocally: {
       reducer(state, action) {
-        state.project.push(action.payload);
+        state.project[0].operationList[action.payload.index].description =
+          action.payload.operationDescToUpdate;
       },
-      prepare(
-        id,
-        version,
-        name,
-        description,
-        openingProjectTime,
-        items,
-        operationList
-      ) {
+      prepare(operationDescToUpdate, index) {
         return {
           payload: {
-            id,
-            version,
-            name,
-            description,
-            openingProjectTime,
-            items,
-            operationList,
+            operationDescToUpdate,
+            index,
           },
         };
       },
@@ -97,14 +86,32 @@ const projectEditorSlice = createSlice({
         console.log("ExR failed");
 
         state.error = action.error.message;
+      })
+      .addCase(updateProject.pending, (state, action) => {
+        state.status = "saving";
+        console.log("Saving the project...");
+      })
+      .addCase(updateProject.fulfilled, (state, action) => {
+        state.status = "saved";
+        // state.project = action.payload
+        console.log("Project saved!");
+      })
+      .addCase(updateProject.rejected, (state, action) => {
+        state.status = "failed";
+        // state.project = action.payload
+        console.log("Project not saved!");
       });
   },
 });
 
-export const selectUserProject = (state) => state.project.project;
+export const selectUserProject = (state) => state.project.project[0];
 export const selectProjectOperations = (state) =>
-  state.project.project != null ? state.project.project.operationList : null;
+  state.project.project != null ? state.project.project[0].operationList : null;
 export const getProjectStatus = (state) => state.project.status;
 export const getProjectError = (state) => state.project.error;
+export const getProjectItems = (state) => state.project.project[1];
+
+const { actions, reducer } = projectEditorSlice;
+export const { saveProjectLocally } = actions;
 
 export default projectEditorSlice.reducer;

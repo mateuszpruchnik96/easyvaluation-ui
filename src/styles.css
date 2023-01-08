@@ -391,25 +391,26 @@ input[type="submit"]:active {
 }
 
 .workbench .project {
-  background-color: #8b94a4;
+  background-color: #f8f9fa;
   margin: 1rem 2rem;
-}
-
-.workbench .project__operation {
-  background-color: #ef233c;
+  padding: 0.8rem;
+  border: 1px solid #8b94a4;
+  border-radius: 0.2rem;
+  box-shadow: #2b2d42 0 0.1rem 0.5rem -0.2rem;
 }
 
 .workbench .project__operation__desc {
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+  border-bottom: 1px solid #8b94a4;
+  padding: 0.3rem;
 }
 
 .workbench .project__operation__body {
   max-height: 0;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
-  background-color: #d90429;
 }
 
 .workbench .project__operation__body--show {
@@ -417,6 +418,19 @@ input[type="submit"]:active {
   max-height: 100rem;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+  padding: 0.8rem 0;
+}
+
+.workbench .project__operation__body__content {
+  width: 100%;
+  min-height: 12rem;
+  height: fit-content;
+  resize: none;
+  overflow: auto;
+}
+
+.workbench .project__operation__body__content:focus-visible {
+  outline: none;
 }
 
 .workbench .new-project {
