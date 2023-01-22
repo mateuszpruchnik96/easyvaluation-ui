@@ -37,6 +37,7 @@ export const updateProject = createAsyncThunk(
     try {
       const response = await axiosConfig.post(
         `http://localhost:8080/projects`,
+        project,
         {
           data: project,
         }
@@ -104,7 +105,8 @@ const projectEditorSlice = createSlice({
   },
 });
 
-export const selectUserProject = (state) => state.project.project[0];
+export const selectUserProject = (state) =>
+  state.project.project != null ? state.project.project[0] : null;
 export const selectProjectOperations = (state) =>
   state.project.project != null ? state.project.project[0].operationList : null;
 export const getProjectStatus = (state) => state.project.status;

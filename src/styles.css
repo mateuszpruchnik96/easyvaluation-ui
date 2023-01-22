@@ -408,9 +408,14 @@ input[type="submit"]:active {
 }
 
 .workbench .project__operation__body {
+  display: block;
   max-height: 0;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.workbench .project__operation__body__wrap {
+  padding: 0.8rem 0;
 }
 
 .workbench .project__operation__body--show {
@@ -418,7 +423,6 @@ input[type="submit"]:active {
   max-height: 100rem;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(1, 0, 1, 0);
-  padding: 0.8rem 0;
 }
 
 .workbench .project__operation__body__content {

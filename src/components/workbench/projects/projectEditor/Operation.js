@@ -28,27 +28,36 @@ const Operation = ({ i, operation, toggle, selected }) => {
             : "project__operation__body"
         }
       >
-        <form>
-          {/* <label>Operation content</label> */}
-          {contentModified ? (
-            <textarea
-              className="project__operation__body__content"
-              type="text"
-              value={content + ""}
-              onChange={(event) => setContent(event.target.value)}
-            />
-          ) : (
-            <p>{content}</p>
-          )}
-        </form>
-        <button
-          onClick={() => {
-            setContentModified(!contentModified);
-            updateOperation();
-          }}
-        >
-          {contentModified ? "Save" : "Modify"}
-        </button>
+        <div className="project__operation__body__wrap">
+          <form>
+            {/* <label>Operation content</label> */}
+            {contentModified ? (
+              <textarea
+                className="project__operation__body__content"
+                type="text"
+                value={content + ""}
+                onChange={(event) => setContent(event.target.value)}
+              />
+            ) : (
+              <p>{content}</p>
+            )}
+          </form>
+          <div className="project__operation__body__price">
+            Cost per hour: {operation.hourPrice}
+          </div>
+          <div className="project__operation__body__hours">
+            Hours: {operation.hours}h
+          </div>
+
+          <button
+            onClick={() => {
+              setContentModified(!contentModified);
+              updateOperation();
+            }}
+          >
+            {contentModified ? "Save" : "Modify"}
+          </button>
+        </div>
       </div>
     </div>
   );

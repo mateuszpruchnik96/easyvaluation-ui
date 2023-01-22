@@ -521,17 +521,23 @@ input[type="submit"] {
       }
 
       &__body {
+        display: block;
         max-height: 0;
         overflow: hidden;
         transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+
         // background-color: $color5;
+
+        &__wrap {
+          padding: 0.8rem 0;
+        }
 
         &--show {
           height: auto;
           max-height: 100rem;
           overflow: hidden;
           transition: all 0.5s cubic-bezier(1, 0, 1, 0);
-          padding: 0.8rem 0;
+          // padding: 0.8rem 0;
         }
 
         &__content {
