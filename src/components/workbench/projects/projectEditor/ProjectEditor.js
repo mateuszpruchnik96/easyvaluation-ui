@@ -143,7 +143,14 @@ const ProjectEditor = () => {
           </div>
         </div>
       ) : (
-        "Loading..."
+        // "Loading..."
+        <button
+          onClick={() => {
+            dispatch(fetchProject(id));
+          }}
+        >
+          Try again
+        </button>
       )}
     </div>
   );
