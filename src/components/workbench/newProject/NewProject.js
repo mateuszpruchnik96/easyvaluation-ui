@@ -34,7 +34,7 @@ const NewProject = () => {
         <button
           type="button"
           className="new-project__form__button"
-          omClick={handleClick}
+          onClick={handleClick}
         >
           Create a new project
         </button>

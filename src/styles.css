@@ -25,8 +25,8 @@ input[type="submit"] {
   color: #edf2f4;
   font-weight: 300;
   letter-spacing: 1.4px;
-  font-size: 1.1rem;
-  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 0.2rem;
 }
 
@@ -333,8 +333,8 @@ input[type="submit"]:active {
   outline: none;
   color: #edf2f4;
   font-weight: 300;
-  font-size: 1.1rem;
-  padding: 0.4rem 1rem;
+  font-size: 1.05rem;
+  padding: 0.3rem 1rem;
   margin: 0 1rem;
 }
 
@@ -391,12 +391,18 @@ input[type="submit"]:active {
 }
 
 .workbench .project {
+  display: flex;
+  flex-direction: column;
   background-color: #f8f9fa;
   margin: 1rem 2rem;
   padding: 0.8rem;
   border: 1px solid #8b94a4;
   border-radius: 0.2rem;
   box-shadow: #2b2d42 0 0.1rem 0.5rem -0.2rem;
+}
+
+.workbench .project__operation {
+  margin-bottom: 0.3rem;
 }
 
 .workbench .project__operation__desc {
@@ -435,6 +441,26 @@ input[type="submit"]:active {
 
 .workbench .project__operation__body__content:focus-visible {
   outline: none;
+}
+
+.workbench .project__operation__body__price {
+  display: flex;
+}
+
+.workbench .project__operation__body__price--modified {
+  min-width: 1.5rem;
+  max-width: fit-content;
+  height: 1.3rem;
+  resize: none;
+  overflow: auto;
+}
+
+.workbench .project__operation__body__price--modified:focus-visible {
+  outline: none;
+}
+
+.workbench .project__btn-conatiner {
+  display: flex;
 }
 
 .workbench .new-project {

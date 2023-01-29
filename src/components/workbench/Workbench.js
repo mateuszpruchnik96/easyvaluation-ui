@@ -6,7 +6,7 @@ import NewProject from "./newProject/NewProject";
 import Projects from "./projects/Projects";
 import TaskBarButton from "./taskBar/TaskBarButton";
 import axios from "axios";
-import axiosConfig from "../../../src/api/axiosConfig";
+// import axiosConfig from "../../../src/api/axiosConfig";
 import { Routes, Route } from "react-router-dom";
 import allRoutes from "routes/allRoutes.js";
 import { useDispatch, useSelector } from "react-redux";

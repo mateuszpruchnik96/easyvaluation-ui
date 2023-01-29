@@ -1,7 +1,6 @@
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
-import { createBatcher } from "framer-motion";
-import { isAccordionItemSelected } from "react-bootstrap/esm/AccordionContext";
-import axiosConfig from "../../api/axiosConfig.js";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axiosConfig from "../../api/axiosConfig.js";
+import instance from "api/AxiosInterceptor.js";
 
 const initialState = {
   projects: [],
@@ -13,9 +12,9 @@ export const fetchProjects = createAsyncThunk(
   `projects/fetchProjects`,
   async () => {
     console.log("Loading");
-    console.log(axiosConfig.token);
     try {
-      const response = await axiosConfig.get(
+      // const response = await axiosConfig.get(
+      const response = await instance.get(
         `http://localhost:8080/projects`
         // `http://localhost:8080/projects?userAccountId=${userId}`
       );

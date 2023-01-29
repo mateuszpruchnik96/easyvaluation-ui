@@ -72,9 +72,9 @@ input[type="submit"] {
   color: $color3;
   font-weight: 300;
   letter-spacing: 1.4px;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 
-  padding: 0.4rem 1rem;
+  padding: 0.3rem 0.8rem;
 
   border-radius: 0.2rem;
   // margin: 0 1rem;
@@ -431,9 +431,9 @@ input[type="submit"] {
 
       color: $color3;
       font-weight: 300;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
 
-      padding: 0.4rem 1rem;
+      padding: 0.3rem 1rem;
       margin: 0 1rem;
 
       &:link,
@@ -500,6 +500,9 @@ input[type="submit"] {
   }
 
   .project {
+    display: flex;
+    flex-direction: column;
+
     background-color: $text-white;
     // width: 100%;
     margin: 1rem 2rem;
@@ -508,8 +511,12 @@ input[type="submit"] {
     border-radius: 0.2rem;
     box-shadow: $color1 0 0.1rem 0.5rem -0.2rem;
 
+    .list-container {
+    }
+
     &__operation {
       // background-color: $color4;
+      margin-bottom: 0.3rem;
 
       &__desc {
         // background-color: $color1;
@@ -551,7 +558,29 @@ input[type="submit"] {
             outline: none;
           }
         }
+
+        &__price {
+          display: flex;
+
+          &--modified {
+            min-width: 1.5rem;
+            max-width: fit-content;
+            height: 1.3rem;
+
+            resize: none;
+            // resize: horizontal;
+            overflow: auto;
+
+            &:focus-visible {
+              outline: none;
+            }
+          }
+        }
       }
+    }
+
+    &__btn-conatiner {
+      display: flex;
     }
   }
 

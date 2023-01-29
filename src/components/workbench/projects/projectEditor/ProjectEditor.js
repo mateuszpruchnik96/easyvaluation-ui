@@ -7,12 +7,15 @@ import {
   fetchProject,
   selectProjectOperations,
   updateProject,
+  actions,
+  changeOperationList,
 } from "./projectEditorSlice";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Operation from "./Operation";
 import ProjectClass from "./../ProjectClass.js";
 import { Droppable, Draggable, DragDropContext } from "react-beautiful-dnd";
+import { uuid } from "uuidv4";
 
 const ProjectEditor = () => {
   let { id } = useParams();
@@ -22,27 +25,28 @@ const ProjectEditor = () => {
   const projectStatus = useSelector(getProjectStatus);
   const error = useSelector(getProjectError);
   let projectX;
-  const operationList = useSelector(selectProjectOperations);
+  // const operationList = useSelector(selectProjectOperations);
 
   const [selected, setSelected] = useState(null);
 
-  console.log(operationList);
-  let defaultList;
+  const emptyOperation = {
+    description: "New operation",
+    hours: 0,
+    hourPrice: 0,
+  };
 
-  // React state to track order of items
-  const [itemList, setItemList] = useState(defaultList);
+  // console.log(operationList);
 
-  // Function to update list on drop
   const handleDrop = (droppedItem) => {
     // Ignore drop outside droppable container
     if (!droppedItem.destination) return;
-    var updatedList = [...itemList];
+    var updatedList = [...project.operationList];
     // Remove dragged item
     const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1);
     // Add dropped item
     updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
     // Update State
-    setItemList(updatedList);
+    dispatch(changeOperationList(updatedList));
   };
 
   const toggle = (i) => {
@@ -53,69 +57,94 @@ const ProjectEditor = () => {
   };
 
   useEffect(() => {
-    console.log("page Id: " + id);
-    if (projectStatus === "idle" || projectStatus === "saved") {
+    if (
+      projectStatus === "idle" ||
+      projectStatus === "saved" ||
+      // projectStatus === "failed" ||
+      (project ? project.id !== Number(id) : false)
+    ) {
       dispatch(fetchProject(id));
     }
-    console.log(projectX);
+
     project != null
       ? (projectX = new ProjectClass(...Object.values(project)))
       : (projectX = null);
-    setItemList([...operationList]);
   }, [projectStatus, dispatch]);
 
   return (
     <div>
       projectEditor {project != null ? JSON.stringify(project) : "Nie pobrano"}
-      <div className="project">
-        <DragDropContext onDragEnd={handleDrop}>
-          <Droppable droppableId="list-container">
-            {(provided) => (
-              <div
-                className="list-container"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {operationList != null
-                  ? operationList.map((operation, i) => (
-                      <Draggable
-                        key={operation.description}
-                        draggableId={operation.description}
-                        index={i}
-                      >
-                        {(provided) => (
-                          <div
-                            className="item-container"
-                            ref={provided.innerRef}
-                            {...provided.dragHandleProps}
-                            {...provided.draggableProps}
-                          >
-                            <Operation
-                              i={i}
-                              operation={operation}
-                              toggle={toggle}
-                              selected={selected}
-                            />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))
-                  : ""}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+      {project != null ? (
+        <div className="project">
+          <DragDropContext onDragEnd={handleDrop}>
+            <Droppable droppableId="list-container">
+              {(provided) => (
+                <div
+                  className="list-container"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {project.operationList != null
+                    ? project.operationList.map((operation, i) => (
+                        <Draggable
+                          key={i + operation.description}
+                          draggableId={
+                            operation.description +
+                            operation.hourPrice +
+                            operation.hours +
+                            i
+                          }
+                          index={i}
+                        >
+                          {(provided) => (
+                            <div
+                              className="item-container"
+                              ref={provided.innerRef}
+                              {...provided.dragHandleProps}
+                              {...provided.draggableProps}
+                            >
+                              <Operation
+                                i={i}
+                                operation={operation}
+                                toggle={toggle}
+                                selected={selected}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      ))
+                    : ""}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
 
-        <button
-          onClick={() => {
-            console.log(project);
-            dispatch(updateProject(project));
-          }}
-        >
-          Save the project
-        </button>
-      </div>
+          <div className="project__btn-container">
+            <button
+              onClick={() => {
+                const newList = project.operationList
+                  ? [...project.operationList, emptyOperation]
+                  : [emptyOperation];
+                console.log(newList, project.operationList, emptyOperation);
+                dispatch(changeOperationList(newList));
+              }}
+            >
+              add operation
+            </button>
+            <button
+              onClick={() => {
+                console.log(project);
+                dispatch(updateProject(project));
+              }}
+            >
+              Save the project
+            </button>
+          </div>
+        </div>
+      ) : (
+        "Loading..."
+      )}
     </div>
   );
 };

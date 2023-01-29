@@ -1,7 +1,6 @@
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
-import { createBatcher } from "framer-motion";
-import { isAccordionItemSelected } from "react-bootstrap/esm/AccordionContext";
-import axiosConfig from "../../../../api/axiosConfig.js";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+// import axiosConfig from "../../../../api/axiosConfig.js";
+import instance from "api/AxiosInterceptor.js";
 
 const initialState = {
   project: null,
@@ -12,13 +11,13 @@ const initialState = {
 export const fetchProject = createAsyncThunk(
   `projectEditor/fetchProject`,
   async (projectId) => {
-    console.log("Loading Fetch Project...");
-    console.log(axiosConfig.token);
+    // console.log("Loading Fetch Project...");
+    // console.log(axiosConfig.token);
     try {
-      const response = await axiosConfig.get(
+      // const response = await axiosConfig.get(
+      const response = await instance.get(
         `http://localhost:8080/projects/project_with_items?projectId=${projectId}`
       );
-      console.log("Fulfilled", response);
 
       return response.data;
     } catch (error) {
@@ -31,18 +30,19 @@ export const fetchProject = createAsyncThunk(
 export const updateProject = createAsyncThunk(
   `projectEditor/updateProject`,
   async (project) => {
-    console.log("Saving...");
-    console.log(axiosConfig.token);
-    console.log(project);
+    // console.log("Saving...");
+    // console.log(axiosConfig.token);
+    // console.log(project);
     try {
-      const response = await axiosConfig.post(
+      // const response = await axiosConfig.post(
+      const response = await instance.post(
         `http://localhost:8080/projects`,
         project,
         {
           data: project,
         }
       );
-      console.log("Fulfilled", response.status);
+      // console.log("Fulfilled", response.status);
 
       return response.data;
     } catch (error) {
@@ -66,6 +66,18 @@ const projectEditorSlice = createSlice({
           payload: {
             operationDescToUpdate,
             index,
+          },
+        };
+      },
+    },
+    changeOperationList: {
+      reducer(state, action) {
+        state.project[0].operationList = action.payload.operationList;
+      },
+      prepare(operationList) {
+        return {
+          payload: {
+            operationList,
           },
         };
       },
@@ -106,14 +118,18 @@ const projectEditorSlice = createSlice({
 });
 
 export const selectUserProject = (state) =>
-  state.project.project != null ? state.project.project[0] : null;
-export const selectProjectOperations = (state) =>
-  state.project.project != null ? state.project.project[0].operationList : null;
+  state.project.project != null && state.project.project != "undefined"
+    ? state.project.project[0]
+    : null;
+// export const selectProjectOperations = (state) =>
+//   state.project.project != null && state.project.project[0] == "undefined"
+//     ? state.project.project[0].operationList
+//     : null;
 export const getProjectStatus = (state) => state.project.status;
 export const getProjectError = (state) => state.project.error;
 export const getProjectItems = (state) => state.project.project[1];
 
-const { actions, reducer } = projectEditorSlice;
-export const { saveProjectLocally } = actions;
+const { actions } = projectEditorSlice;
+export const { saveProjectLocally, changeOperationList } = actions;
 
 export default projectEditorSlice.reducer;

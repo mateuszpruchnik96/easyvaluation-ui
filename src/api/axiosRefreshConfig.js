@@ -35,6 +35,7 @@ instance.interceptors.response.use(
       "easyValuationRefreshToken",
       response.data.easyValuationRefreshToken
     );
+    return response;
   },
   async (error) => {
     throw error;

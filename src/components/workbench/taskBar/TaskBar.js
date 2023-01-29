@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 
 import allRoutes from "routes/allRoutes.js";
 
+console.log(allRoutes);
 const workbenchRoutes = allRoutes().find(
   (route) => route.key === `/workbench`
 ).nestedRoutes;

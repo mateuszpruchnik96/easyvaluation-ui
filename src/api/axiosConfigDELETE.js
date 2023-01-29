@@ -42,12 +42,13 @@ instance.interceptors.response.use(
             },
           }
         )
-        // .then((resp) => console.log(resp))
+
         .catch((e) => console.error(`ErrorX: ${e}`));
 
-      // console.log(refreshResponse);
-
       if (refreshResponse.status !== 200) {
+        localStorage.setItem("easyValuationToken", null);
+
+        localStorage.setItem("easyValuationRefreshToken", null);
         throw new Error(`Refresh response status: ${refreshResponse.status}`);
       } else {
         localStorage.setItem(
@@ -60,20 +61,10 @@ instance.interceptors.response.use(
           refreshResponse.data.easyValuationRefreshToken
         );
 
-        // const newResponse = await axios.
-        // console.log(refreshResponse.data.easyValuationToken);
-        // console.log(localStorage.easyValuationToken);
-
         const newConfig = error.config;
         newConfig.headers.Authorization = `Bearer ${refreshResponse.data.easyValuationToken}`;
-        // console.log(refreshResponse.data.easyValuationToken);
-        // console.log(newConfig);
-        // console.log(error.config);
 
         return axios(newConfig);
-
-        // return refreshResponse;
-        // dispatch(signIn());
       }
     }
   }

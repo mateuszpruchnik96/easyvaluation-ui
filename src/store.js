@@ -1,8 +1,8 @@
-import { createStore } from "redux";
 import allReducers from "reducers/reducers";
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+// import logger from "redux-logger";
 import thunk from "redux-thunk";
 
 const persistConfig = {
@@ -16,6 +16,8 @@ const store = configureStore({
   // reducer: allReducers,
 
   reducer: persistedReducer,
+  // middleware: [thunk, logger],
+  middleware: [thunk],
 });
 
 let persistor = persistStore(store);

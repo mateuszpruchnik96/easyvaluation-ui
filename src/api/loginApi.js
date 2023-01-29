@@ -1,10 +1,11 @@
-import axiosConfig from "./axiosConfig";
+// import axiosConfig from "./axiosConfig";
+import instance from "./AxiosInterceptor";
 import axios from "axios";
 
 const loginApi = async function (url, login, password) {
   try {
     //ZMIENIĆ NA AXIOS.POST - FETCH ZWRACA Response, AXIOS zwraca Json
-    const res = await axiosConfig.post(url, {
+    const res = await instance.post(url, {
       login: login,
       password: password,
     });

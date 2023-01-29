@@ -8,7 +8,7 @@ import {
   Routes,
   Route,
   // useLocation,
-  useNavigate,
+  // useNavigate,
   Navigate,
 } from "react-router-dom";
 import React, { useEffect } from "react";
@@ -16,6 +16,7 @@ import axiosRefreshConfig from "./api/axiosRefreshConfig.js";
 
 import allRoutes from "routes/allRoutes.js";
 import { signOut } from "actions/index.js";
+import { AxiosInterceptor } from "api/AxiosInterceptor.js";
 
 function App() {
   const isLogged = useSelector((state) => state.isLogged);
@@ -42,7 +43,7 @@ function App() {
   const routes = allRoutes();
 
   useEffect(() => {
-    window.onbeforeunload = checkValidation();
+    // window.onbeforeunload = checkValidation();
 
     return () => {
       window.onbeforeunload = null;
@@ -55,7 +56,7 @@ function App() {
 
     try {
       console.log("REFRESH TOKEN CHECK");
-      await axiosRefreshConfig.post(
+      let response = await axiosRefreshConfig.post(
         // `http://localhost:8080/refreshtoken`,
         "",
         localStorage.easyValuationRefreshToken,
@@ -65,116 +66,83 @@ function App() {
           },
         }
       );
+      console.log(response);
+      if (response.status == 404) {
+        console.log("dispatch logout");
+        dispatch(signOut());
+      }
     } catch (error) {
-      console.log("dispatch logout");
+      console.log("dispatch logout because of error: " + error);
       dispatch(signOut());
     }
   };
 
   return (
     <Router>
-      <div className="app">
-        {/* <Header routes={routes} isLogged={isLogged} /> */}
-        <Routes>
-          {routes.map(function (route) {
-            return (
-              <Route
-                key={route.key}
-                path={route.path}
-                authed={route.authed}
-                element={
-                  route.authed === true ? (
-                    isLogged === true ? (
+      <AxiosInterceptor>
+        <div className="app">
+          {/* <Header routes={routes} isLogged={isLogged} /> */}
+          <Routes>
+            {routes.map(function (route) {
+              return (
+                <Route
+                  key={route.key}
+                  path={route.path}
+                  authed={route.authed}
+                  element={
+                    route.authed === true ? (
+                      isLogged === true ? (
+                        <route.component
+                          variants={pageVariants}
+                          transition={pageTransition}
+                          routes={routes}
+                        ></route.component>
+                      ) : (
+                        <Navigate
+                          to="/login"
+                          // replace
+                          // state={{ path: location.pathname }}
+                        />
+                      )
+                    ) : (
                       <route.component
                         variants={pageVariants}
                         transition={pageTransition}
                         routes={routes}
                       ></route.component>
-                    ) : (
-                      <Navigate
-                        to="/login"
-                        // replace
-                        // state={{ path: location.pathname }}
-                      />
                     )
-                  ) : (
-                    <route.component
-                      variants={pageVariants}
-                      transition={pageTransition}
-                      routes={routes}
-                    ></route.component>
-                  )
-                }
-              >
-                {/* {
+                  }
+                >
+                  {/* {
                   // (() => {
-                  route.nestedRoutes
+                    route.nestedRoutes
                     ? route.nestedRoutes.map(function (nestedRoute) {
                         return (
                           <Route
-                            path={nestedRoute.path}
-                            element={
-                              <nestedRoute.component
+                          path={nestedRoute.path}
+                          element={
+                            <nestedRoute.component
                                 variants={pageVariants}
                                 transition={pageTransition}
                                 //  routes={routes}
-                              />
-                            }
+                                />
+                              }
                           />
-                        );
+                          );
                       })
                     : () => {
-                        return <></>;
-                      }
-                } */}
-                {/* // })() */}
-              </Route>
-            );
-          })}
-        </Routes>
-      </div>
+                      return <></>;
+                    }
+                  } */}
+                  {/* // })() */}
+                </Route>
+              );
+            })}
+          </Routes>
+        </div>
+      </AxiosInterceptor>
     </Router>
   );
 }
 
 export default App;
-
-// {
-//   // (() => {
-//   route.nestedRoutes
-//     ? route.nestedRoutes.map(function (nestedRoute) {
-//         return (
-//           <Route
-//             path={nestedRoute.path}
-//             element={
-//               <nestedRoute.component
-//                 variants={pageVariants}
-//                 transition={pageTransition}
-//                 //  routes={routes}
-//               />
-//             }
-//           />
-//         );
-//       })
-//     : () => {
-//         return <></>;
-//       }
-// })()
-//
-
-// <Route
-// path="/workbenchX"
-// element={
-//   <Workbench
-//     variants={pageVariants}
-//     transition={pageTransition}
-//     routes={routes}
-//   ></Workbench>
-// }
-// >
-// <Route
-//   path="/workbenchX/projects"
-//   variants={pageVariants}
-//   transition={pageTransition}
-// ></Route>
-// </Route>
