@@ -18,6 +18,10 @@ const Projects = () => {
   const projectsStatus = useSelector(getProjectsStatus);
   const error = useSelector(getProjectsError);
 
+  if (projectsStatus === "idle") {
+    dispatch(fetchProjects());
+  }
+
   useEffect(() => {
     console.log(projects);
     console.log(projectsStatus);

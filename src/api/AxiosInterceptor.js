@@ -36,6 +36,7 @@ const AxiosInterceptor = ({ children }) => {
   useEffect(() => {
     instance.interceptors.request.use(async function (request) {
       console.log("REQUEST INTERCEPTOR WRAPPER");
+      console.log(request);
 
       request.headers.Authorization = getAuthorizationHeader();
 
@@ -44,7 +45,12 @@ const AxiosInterceptor = ({ children }) => {
 
     const resInterceptor = (response) => {
       console.log("RESPONSE INTERCEPTOR WRAPPER");
+      console.log(response);
+      if (response.status === 401) {
+        console.log("RESPONSE INTERCEPTOR WRAPPER 1");
 
+        throw new Error(response);
+      }
       return response;
     };
 
@@ -67,7 +73,7 @@ const AxiosInterceptor = ({ children }) => {
               },
             }
           )
-          .then((resp) => {
+          .then(async (resp) => {
             console.log(resp);
             localStorage.setItem(
               "easyValuationToken",
@@ -78,6 +84,15 @@ const AxiosInterceptor = ({ children }) => {
               "easyValuationRefreshToken",
               resp.data.easyValuationRefreshToken
             );
+
+            console.log(error.request);
+            let newConfig = error.config;
+            newConfig.headers.Authorization = `${getAuthorizationHeader()}`;
+            console.log(newConfig);
+            const response = await axios.request(error.config);
+            console.log(response);
+
+            return response;
           })
           .catch((e) => {
             console.error(`ErrorX: ${e}`);
@@ -97,35 +112,7 @@ const AxiosInterceptor = ({ children }) => {
           });
 
         console.log(refreshResponse);
-
-        // if (refreshResponse.status == 404) {
-        //   console.log("INTERCEPTOR ERROR WRAPPER 2");
-
-        //   localStorage.setItem("easyValuationToken", null);
-
-        //   localStorage.setItem("easyValuationRefreshToken", null);
-
-        //   dispatch(signOut());
-        //   throw new Error(`Refresh response status: ${refreshResponse.status}`);
-        // } else
-        // if (refreshResponse.status === 200) {
-        //   localStorage.setItem(
-        //     "easyValuationToken",
-        //     refreshResponse.data.easyValuationToken
-        //   );
-
-        //   localStorage.setItem(
-        //     "easyValuationRefreshToken",
-        //     refreshResponse.data.easyValuationRefreshToken
-        //   );
-
-        //   const newConfig = error.config;
-        //   newConfig.headers.Authorization = `Bearer ${refreshResponse.data.easyValuationToken}`;
-
-        //   // return axios(newConfig);
-
-        //   return refreshResponse;
-        // }
+        return refreshResponse;
       } else if (error.response.status === 404) {
         throw new Error(`Project not found: ${error.response.status}`);
       } else if (error.response.status === 500) {

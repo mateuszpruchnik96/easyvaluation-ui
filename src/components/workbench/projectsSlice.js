@@ -14,10 +14,7 @@ export const fetchProjects = createAsyncThunk(
     console.log("Loading");
     try {
       // const response = await axiosConfig.get(
-      const response = await instance.get(
-        `http://localhost:8080/projects`
-        // `http://localhost:8080/projects?userAccountId=${userId}`
-      );
+      const response = await instance.get(`http://localhost:8080/projects`);
       // state.status = "succeeded";
 
       console.log("Fulfilled", response.status);
