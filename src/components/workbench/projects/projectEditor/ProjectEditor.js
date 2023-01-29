@@ -56,6 +56,15 @@ const ProjectEditor = () => {
     setSelected(i);
   };
 
+  if (
+    projectStatus === "idle" ||
+    projectStatus === "saved" ||
+    // projectStatus === "failed" ||
+    (project ? project.id !== Number(id) : false)
+  ) {
+    dispatch(fetchProject(id));
+  }
+
   useEffect(() => {
     if (
       projectStatus === "idle" ||
