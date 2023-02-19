@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { saveProjectLocally } from "./projectEditorSlice.js";
-import { useDispatch } from "react-redux";
+import {
+  saveProjectLocally,
+  selectUserProject,
+  changeOperationList,
+} from "./projectEditorSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Operation = ({ i, operation, toggle, selected }) => {
   const dispatch = useDispatch();
+  const project = useSelector(selectUserProject);
 
   const [contentModified, setContentModified] = useState(false);
   const [content, setContent] = useState(operation.description);
@@ -11,6 +17,12 @@ const Operation = ({ i, operation, toggle, selected }) => {
 
   const updateOperation = function () {
     dispatch(saveProjectLocally(content, selected));
+  };
+
+  const deleteOperation = function () {
+    const updatedList = [...project.operationList];
+    updatedList.splice(i, 1);
+    dispatch(changeOperationList(updatedList));
   };
 
   return (
@@ -85,6 +97,13 @@ const Operation = ({ i, operation, toggle, selected }) => {
             }}
           >
             {contentModified ? "Save" : "Modify"}
+          </button>
+          <button
+            onClick={() => {
+              deleteOperation();
+            }}
+          >
+            {contentModified ? "" : "Delete"}
           </button>
         </div>
       </div>

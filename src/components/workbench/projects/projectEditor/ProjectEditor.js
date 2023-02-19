@@ -16,6 +16,7 @@ import Operation from "./Operation";
 import ProjectClass from "./../ProjectClass.js";
 import { Droppable, Draggable, DragDropContext } from "react-beautiful-dnd";
 import { uuid } from "uuidv4";
+import Materials from "./Materials";
 
 const ProjectEditor = () => {
   let { id } = useParams();
@@ -67,10 +68,11 @@ const ProjectEditor = () => {
 
   useEffect(() => {
     if (
-      projectStatus === "idle" ||
-      projectStatus === "saved" ||
+      projectStatus == "idle" ||
+      projectStatus == "saved"
+      // ||
       // projectStatus === "failed" ||
-      (project ? project.id !== Number(id) : false)
+      // (project ? project.id !== Number(id) : false)
     ) {
       dispatch(fetchProject(id));
     }
@@ -85,6 +87,7 @@ const ProjectEditor = () => {
       projectEditor {project != null ? JSON.stringify(project) : "Nie pobrano"}
       {project != null ? (
         <div className="project">
+          <Materials selected={selected} />
           <DragDropContext onDragEnd={handleDrop}>
             <Droppable droppableId="list-container">
               {(provided) => (
@@ -148,6 +151,13 @@ const ProjectEditor = () => {
               }}
             >
               Save the project
+            </button>
+            <button
+              onClick={() => {
+                dispatch(fetchProject(id));
+              }}
+            >
+              Undo changes
             </button>
           </div>
         </div>

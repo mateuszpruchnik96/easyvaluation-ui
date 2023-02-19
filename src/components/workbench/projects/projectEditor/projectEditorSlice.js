@@ -125,9 +125,9 @@ export const selectUserProject = (state) =>
 //   state.project.project != null && state.project.project[0] == "undefined"
 //     ? state.project.project[0].operationList
 //     : null;
-export const getProjectStatus = (state) => state.project.status;
-export const getProjectError = (state) => state.project.error;
-export const getProjectItems = (state) => state.project.project[1];
+export const getProjectStatus = (state) => state?.project?.status;
+export const getProjectError = (state) => state?.project?.error;
+export const getProjectItems = (state) => state?.project?.project[1];
 
 const { actions } = projectEditorSlice;
 export const { saveProjectLocally, changeOperationList } = actions;
