@@ -16,7 +16,7 @@ export const fetchProject = createAsyncThunk(
     try {
       // const response = await axiosConfig.get(
       const response = await instance.get(
-        `http://localhost:8080/projects/project_with_items?projectId=${projectId}`
+        `http://localhost:8080/projects/project?projectId=${projectId}`
       );
 
       return response.data;
@@ -30,11 +30,7 @@ export const fetchProject = createAsyncThunk(
 export const updateProject = createAsyncThunk(
   `projectEditor/updateProject`,
   async (project) => {
-    // console.log("Saving...");
-    // console.log(axiosConfig.token);
-    // console.log(project);
     try {
-      // const response = await axiosConfig.post(
       const response = await instance.post(
         `http://localhost:8080/projects`,
         project,
@@ -42,7 +38,39 @@ export const updateProject = createAsyncThunk(
           data: project,
         }
       );
-      // console.log("Fulfilled", response.status);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return error.reponse.status;
+    }
+  }
+);
+
+export const findItemsByName = createAsyncThunk(
+  `projectEditor/findItemsByName`,
+  async (letters) => {
+    try {
+      console.log("finding...");
+      const response = await instance.get(
+        `http://localhost:8080/materials/items?name=${letters}`
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return error.reponse.status;
+    }
+  }
+);
+
+export const findItemById = createAsyncThunk(
+  `projectEditor/findItemById`,
+  async (id) => {
+    try {
+      console.log("finding...");
+      const response = await instance.get(
+        `http://localhost:8080/materials/items/${id}`
+      );
 
       return response.data;
     } catch (error) {
@@ -58,13 +86,19 @@ const projectEditorSlice = createSlice({
   reducers: {
     saveProjectLocally: {
       reducer(state, action) {
-        state.project[0].operationList[action.payload.index].description =
+        state.project.operationList[action.payload.index].description =
           action.payload.operationDescToUpdate;
+        state.project.operationList[action.payload.index].hourPrice =
+          action.payload.hourPrice;
+        state.project.operationList[action.payload.index].hours =
+          action.payload.hours;
       },
-      prepare(operationDescToUpdate, index) {
+      prepare(operationDescToUpdate, hourPrice, hours, index) {
         return {
           payload: {
             operationDescToUpdate,
+            hourPrice,
+            hours,
             index,
           },
         };
@@ -72,12 +106,24 @@ const projectEditorSlice = createSlice({
     },
     changeOperationList: {
       reducer(state, action) {
-        state.project[0].operationList = action.payload.operationList;
+        state.project.operationList = action.payload.operationList;
       },
       prepare(operationList) {
         return {
           payload: {
             operationList,
+          },
+        };
+      },
+    },
+    changeProjectItems: {
+      reducer(state, action) {
+        state.project.projectItems = action.payload.projectItems;
+      },
+      prepare(projectItems) {
+        return {
+          payload: {
+            projectItems,
           },
         };
       },
@@ -119,7 +165,7 @@ const projectEditorSlice = createSlice({
 
 export const selectUserProject = (state) =>
   state.project.project != null && state.project.project != "undefined"
-    ? state.project.project[0]
+    ? state.project.project
     : null;
 // export const selectProjectOperations = (state) =>
 //   state.project.project != null && state.project.project[0] == "undefined"
@@ -127,9 +173,10 @@ export const selectUserProject = (state) =>
 //     : null;
 export const getProjectStatus = (state) => state?.project?.status;
 export const getProjectError = (state) => state?.project?.error;
-export const getProjectItems = (state) => state?.project?.project[1];
+export const getProjectItems = (state) => state?.project?.project?.projectItems;
 
 const { actions } = projectEditorSlice;
-export const { saveProjectLocally, changeOperationList } = actions;
+export const { saveProjectLocally, changeOperationList, changeProjectItems } =
+  actions;
 
 export default projectEditorSlice.reducer;

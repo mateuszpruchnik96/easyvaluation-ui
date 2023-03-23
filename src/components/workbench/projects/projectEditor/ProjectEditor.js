@@ -25,12 +25,13 @@ const ProjectEditor = () => {
   const project = useSelector(selectUserProject);
   const projectStatus = useSelector(getProjectStatus);
   const error = useSelector(getProjectError);
+
   let projectX;
-  // const operationList = useSelector(selectProjectOperations);
 
   const [selected, setSelected] = useState(null);
 
   const emptyOperation = {
+    title: "New operation",
     description: "New operation",
     hours: 0,
     hourPrice: 0,
@@ -107,6 +108,7 @@ const ProjectEditor = () => {
                             i
                           }
                           index={i}
+                          isDragDisabled={i == selected ? true : false}
                         >
                           {(provided) => (
                             <div

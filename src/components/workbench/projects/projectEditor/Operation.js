@@ -5,7 +5,7 @@ import {
   changeOperationList,
 } from "./projectEditorSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-
+import ConfirmWindow from "./ConfirmWindow.js";
 
 const Operation = ({ i, operation, toggle, selected }) => {
   const dispatch = useDispatch();
@@ -14,14 +14,16 @@ const Operation = ({ i, operation, toggle, selected }) => {
   const [contentModified, setContentModified] = useState(false);
   const [content, setContent] = useState(operation.description);
   const [hourPrice, setHourPrice] = useState(operation.hourPrice);
+  const [hours, setHours] = useState(operation.hours);
 
   const updateOperation = function () {
-    dispatch(saveProjectLocally(content, selected));
+    dispatch(saveProjectLocally(content, hourPrice, hours, selected));
   };
 
   const deleteOperation = function () {
     const updatedList = [...project.operationList];
     updatedList.splice(i, 1);
+
     dispatch(changeOperationList(updatedList));
   };
 
@@ -77,11 +79,11 @@ const Operation = ({ i, operation, toggle, selected }) => {
               <input
                 type="number"
                 className="project__operation__body__hours--modified"
-                value={hourPrice + ""}
+                value={hours + ""}
                 min="0"
                 max="10000000"
                 onChange={(event) => {
-                  setHourPrice(event.target.value);
+                  setHours(event.target.value);
                 }}
               />
             ) : (
@@ -98,13 +100,25 @@ const Operation = ({ i, operation, toggle, selected }) => {
           >
             {contentModified ? "Save" : "Modify"}
           </button>
-          <button
-            onClick={() => {
-              deleteOperation();
-            }}
-          >
-            {contentModified ? "" : "Delete"}
-          </button>
+          {contentModified ? (
+            <ConfirmWindow
+              title="Rollback changes"
+              text="Do you want to undo changes in this operation?"
+              onConfirm={() => console.log("rollback")}
+              onCancel={() => console.log("cancel")}
+            >
+              <button>Rollback changes</button>
+            </ConfirmWindow>
+          ) : (
+            <ConfirmWindow
+              title="Delete"
+              text="Do you want to delete this operation?"
+              onConfirm={deleteOperation}
+              onCancel={() => console.log("cancel")}
+            >
+              <button>Delete</button>
+            </ConfirmWindow>
+          )}
         </div>
       </div>
     </div>
